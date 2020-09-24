@@ -21,7 +21,9 @@ Kaggle:
 - [Pave Your Pathway: Data Career Paths - 02.12.2020](https://youtu.be/OlbcdOhzrzw)
   - google doc: [Pave Your Pathway Google Doc - **copy first**](https://docs.google.com/document/d/1rLtvmbrlHYLFXpVWJ9yV2RgKgf6Z5dceBaqPqOXA3OI/)
 
+### Different filter terms?:
 
+![image-20200924113906911](README.assets/image-20200924113906911.png)
 
 Company Websites:
 
