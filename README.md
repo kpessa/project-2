@@ -25,7 +25,13 @@ Kaggle:
 
 ![image-20200924113906911](README.assets/image-20200924113906911.png)
 
-Company Websites:
+### Local Tech Meetups:
+
+![image-20200924114452924](README.assets/image-20200924114452924.png)
+
+#### 1. [Palm Beach Tech Meetup](https://www.meetup.com/PalmBeachTech/)
+
+### Company Websites:
 
 - UnitedHealthcare - https://careers.unitedhealthgroup.com/
 - HCA Corporate - https://careers.hcahealthcare.com/
