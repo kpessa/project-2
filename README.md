@@ -1,4 +1,18 @@
 # project-2 Jobs
+**Project table of contents**
+
+1. Purpose - Mission / Vision
+2. Data Sources
+3. Dashboard / Visualizations
+
+----
+
+- More details
+
+
+
+## 1. Purpose
+
 ### **Vision**
 
 - Create a useful web application to help search for data analytics jobs
@@ -9,9 +23,39 @@
   - Data Analytics
   - Data Science
 
+
+
+## 2. Data Sources
+
+### Possible Datasets
+
+Kaggle:
+
+- https://www.kaggle.com/andrewmvd/data-analyst-jobs
+- https://www.kaggle.com/promptcloud/jobs-on-naukricom
+
+### Possibility to Scrape / Data Mine
+
+- Glassdoor
+- Company websites (based on website license)
+
+
+
+## 3. Dashboard
+
+- Filters
+
+  - Experience, Industry, Skills, Location
+
+- Visualizations
+
+  - Possible Geomapping with Leaflet.js for with location data
+
+  
+
 <hr>
 
-#### Details:
+#### More Details:
 
 ##### Filters:
 
@@ -35,14 +79,6 @@
 
 <hr>
 
-## Possible Datasets:
-
-Kaggle:
-
-- https://www.kaggle.com/andrewmvd/data-analyst-jobs
-- https://www.kaggle.com/promptcloud/jobs-on-naukricom
-
-
 
 ## Bootcamp spot career services:
 
@@ -65,7 +101,4 @@ Kaggle:
 - HCA Corporate - https://careers.hcahealthcare.com/
 - Veteran's Association - https://www.vacareers.va.gov/
 
-
-
-The Best Project
 
