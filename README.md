@@ -6,7 +6,6 @@
   - Data Science
   - Healthcare Analytics
   
-  
 
 ## Possible Datasets:
 
