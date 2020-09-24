@@ -1,11 +1,37 @@
 # project-2 Jobs
-**Purpose**: 
+### **Vision**
+
+- Create a useful web application to help search for data analytics jobs
+
+### Mission
 
 - Develop a dashboard application with jobs related to:
   - Data Analytics
   - Data Science
-  - Healthcare Analytics
+
+<hr>
+
+#### Details:
+
+##### Filters:
+
+- Experience
+
   
+
+  ![image-20200924113906911](README.assets/image-20200924113906911.png)
+
+- Industry
+
+  ![image-20200924115732076](README.assets/image-20200924115732076.png)
+
+- Skills
+
+  ![image-20200924120100674](README.assets/image-20200924120100674.png)
+
+  
+
+<hr>
 
 ## Possible Datasets:
 
@@ -23,7 +49,7 @@ Kaggle:
 
 ### Different filter terms?:
 
-![image-20200924113906911](README.assets/image-20200924113906911.png)
+
 
 ### Local Tech Meetups:
 
