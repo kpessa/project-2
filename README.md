@@ -1,4 +1,5 @@
-# project-2 Jobs
+project-2 Jobs
+
 **Project table of contents**
 
 1. Purpose - Mission / Vision
@@ -101,4 +102,17 @@ Kaggle:
 - HCA Corporate - https://careers.hcahealthcare.com/
 - Veteran's Association - https://www.vacareers.va.gov/
 
+
+
+## Visuals
+
+1. Google ![image-20200925073230199](README.assets/image-20200925073230199.png)
+
+2. Filters at JobHero
+
+   ![image-20200925073324724](README.assets/image-20200925073324724.png)
+
+3. Indeed ![image-20200925073425580](README.assets/image-20200925073425580.png)
+4. Monster![image-20200925073538674](README.assets/image-20200925073538674.png)
+5. Glassdoor![image-20200925073745789](README.assets/image-20200925073745789.png)
 
