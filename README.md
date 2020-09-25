@@ -1,4 +1,20 @@
-project-2 Jobs
+# project-2 Data Jobs
+
+![image-20200925074012262](README.assets/image-20200925074012262.png)
+
+- Select a topic: ***Data Jobs***
+
+- Finding a dataset: ***Kaggle:*** https://www.kaggle.com/andrewmvd/data-analyst-jobs
+
+- Finding Inspiration: 
+
+  - **Filters**
+
+    ![image-20200925074439615](README.assets/image-20200925074439615.png)
+
+  - **Query Result Cards**
+
+    ![image-20200925075108543](README.assets/image-20200925075108543.png)
 
 **Project table of contents**
 
