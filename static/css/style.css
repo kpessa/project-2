@@ -23,3 +23,11 @@
   background-color: grey;
   font-weight: bold;
 }
+
+#map {
+  padding-top: 20px;
+  height:100%;
+  background-color: lightseagreen;
+  text-align:center;
+}
+
