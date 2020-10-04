@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+.container { 
+  border: 2px solid red;
+  }
+
+.row { 
+  border: 2px solid green;
+  }
+.col { 
+  border: 2px solid blue;
+  }
+.body {
+  height: 600px;
+}
+
+#menu {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align:center;
+  background-color: grey;
+  font-weight: bold;
+}
