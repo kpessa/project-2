@@ -9,3 +9,8 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: MAPBOX_API_KEY
 }).addTo(mymap);
+
+
+d3.json('static/js/map/counties.json').then(data => {
+  L.geoJson(data).addTo(mymap)
+});
