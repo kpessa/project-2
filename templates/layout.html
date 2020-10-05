@@ -17,51 +17,33 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <div id="menu">
-            <h1>Menu Bar</h1>
-            <h3>Filter: (1) State (2) County</h3>
-          </div>
+          {% block menu%}
+          {% include "modules/menu.html" %}
+          {% endblock menu %}
         </div>
       </div>
       <div class="row">
         <div class="col-md-7 body">
-          <div id="map">
-            <h1>FL MAP (67 counties)</h1>
-            <ul>
-              <li>Layers of median income</li>
-              <li>Index Score</li>
-              <li>Uninsured pop %</li>
-              <li>Poor health days</li>
-              <li>Median Income</li>
-            </ul>
-          </div>
-        </div>
+          {% block map%}
+          {% include "modules/map.html" %}
+          {% endblock map %}
         <div class="col-md-5 body">
           <div class="row">
-            <div id="gauge-chart-state">
-              <h1>Guage chart FL vs score</h1>
-            </div>
+            {% block gauge_chart_state %}
+            {% include "modules/gauge-chart-state.html" %}
+            {% endblock gauge_chart_state %}
           </div>
           <div class="row">
             <div class="col">
-              <div id="gauge-chart-county">
-                <h1>Guage chart County</h1>
-                <h1>vs score</h1>
-              </div>
+              {% block gauge_chart_county %}
+              {% include "modules/gauge-chart-county.html" %}
+              {% endblock gauge_chart_county %}
             </div>
           </div>
           <div class="row">
-            <div id="d3-scatter">
-              <h1>D3 scatter plot</h1>
-              <p>Death Rate(y)</p>
-              <p>vs</p>
-              <ul>
-                <li>Uninsured pop%</li>
-                <li>Poor health days</li>
-                <li>Median income</li>
-                <li>(linear regression)</li>
-              </ul>
-            </div>
+            {% block d3_scatter %}
+            {% include "modules/d3-scatter.html" %}
+            {% endblock d3_scatter %}
           </div>
         </div>
       </div>
