@@ -10,6 +10,22 @@ d3.select("#state-dropdown")
     .attr("value", d=> d.abbreviation)
     .text(d=>d.abbreviation)
 
-    document.getElementById("state-dropdown").selectedIndex = 11;
+// Setting dropdown to Florida to start    
+document.getElementById("state-dropdown").selectedIndex = 11;
 
-console.log("Hello World")
+d3.json("http://127.0.0.1:5000/api/v1.0/Florida_data").then(flData => {
+  
+  let counties = Object.values(flData).map(d=>d.county)
+
+  d3.select('#county-dropdown')
+    .selectAll("option")
+    .data(counties)
+    .enter()
+    .append("option")
+      .attr("value", d=>d)
+      .text(d=>d)
+
+})
+
+
+
