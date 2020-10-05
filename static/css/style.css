@@ -33,14 +33,6 @@ body {
   font-weight: bold;
 }
 
-#map {
-  border: 2px solid black;
-  padding-top: 20px;
-  height:100%;
-  background-color: lightseagreen;
-  text-align:center;
-}
-
 #gauge-chart-state,
 #gauge-chart-county {
   border: 2px solid black;
