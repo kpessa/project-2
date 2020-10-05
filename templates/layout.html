@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/reset.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -38,13 +38,30 @@
         </div>
         <div class="col-md-5 body">
           <div class="row">
-            <img src="static\images\guage_chart_fl.png" alt="" />
+            <div id="gauge-chart-state">
+              <h1>Guage chart FL vs score</h1>
+            </div>
           </div>
           <div class="row">
-            <img src="static\images\guage_chart_county.png" alt="" />
+            <div class="col">
+              <div id="gauge-chart-county">
+                <h1>Guage chart County</h1>
+                <h1>vs score</h1>
+              </div>
+            </div>
           </div>
           <div class="row">
-            <img src="static\images\d3_scatter.png" alt="" />
+            <div id="d3-scatter">
+              <h1>D3 scatter plot</h1>
+              <p>Death Rate(y)</p>
+              <p>vs</p>
+              <ul>
+                <li>Uninsured pop%</li>
+                <li>Poor health days</li>
+                <li>Median income</li>
+                <li>(linear regression)</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
