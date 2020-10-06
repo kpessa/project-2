@@ -95,6 +95,9 @@ d3.csv("static/data/fl_data.csv").then(function(data) {
         .attr('transform', 'translate(' + axisLabelX + ', ' + axisLabelY + ')')
         .append('text')
         .attr('text-anchor', 'middle')
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (chartHeight / 2))
+        // .attr("dy", "1em")
         .attr('transform', 'rotate(-90)')
         .text(y);
         // .style('font-weight', 'bold');
