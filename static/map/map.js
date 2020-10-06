@@ -1,4 +1,5 @@
-d3.json(" /secret/API_KEY").then((api_json) => {
+d3.json("/secret/API_KEY").then((api_json) => {
+  console.log(api_json.API_KEY)
   let API_KEY = api_json.API_KEY;
   let satellite = makeLayer("satellite-v9", API_KEY);
   let streets = makeLayer("streets-v11", API_KEY);
