@@ -6,7 +6,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     id: 'mapbox/light-v10',
     tileSize: 512,
     zoomOffset: -1,
-    accessToken: process.env.APK_KEY
+    accessToken: process.env.API_KEY
 }).addTo(mymap);
 
 
