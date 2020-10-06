@@ -13,7 +13,7 @@ d3.select("#state-dropdown")
 // Setting dropdown to Florida to start    
 document.getElementById("state-dropdown").selectedIndex = 11;
 
-d3.json("http://127.0.0.1:5000/api/v1.0/Florida_data").then(flData => {
+d3.json("/api/v1.0/Florida_data").then(flData => {
   
   let counties = Object.values(flData).map(d=>d.county)
 
