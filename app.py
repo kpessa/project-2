@@ -14,7 +14,16 @@ app.config['API_KEY'] = environ.get('API_KEY')
 # Homepage
 @app.route('/')
 def index():
-    return render_template("layout.html", API_KEY = app.config['API_KEY'])
+    return render_template("layout.html")
+
+# API_KEY
+@app.route('/secret/API_KEY')
+def api_key():
+    if app.config['API_KEY']:
+        return jsonify({"API_KEY": app.config['API_KEY']})
+    else:
+        return "null api key"    
+    
 
 # USA COVID-19 related API
 @app.route('/api/v1.0/USA_data')
