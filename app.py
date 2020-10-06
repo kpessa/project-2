@@ -9,7 +9,6 @@ covid_db_path = os.path.join('database','covid_factors_database.sqlite')
 
 # Flask Setup
 app = Flask(__name__)
-app.config['API_KEY'] = environ.get('API_KEY')
 
 # Homepage
 @app.route('/')
@@ -19,10 +18,8 @@ def index():
 # API_KEY
 @app.route('/secret/API_KEY')
 def api_key():
-    if app.config['API_KEY']:
-        return jsonify({"API_KEY": app.config['API_KEY']})
-    else:
-        return "null api key"    
+    return jsonify({"API_KEY": environ.get('API_KEY')})
+    
     
 
 # USA COVID-19 related API
