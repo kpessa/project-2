@@ -1,19 +1,23 @@
-// // Define SVG area dimensions
-// var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
-// var svgHeight = svgWidth - (svgWidth/3.9);
-// var margin =  20;
-// var pad = 40;
-// var labelArea = 110;
+// Define SVG area dimensions
+var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
+var svgHeight = svgWidth - (svgWidth/3.9);
+var margin =  20;
+var pad = 40;
+var labelArea = 110;
+console.log(svgWidth);
 
-// // Define dimensions of the chart area
-// var chartWidth = svgWidth - (margin * 2);
-// var chartHeight = svgHeight - (margin * 2);
+// Define dimensions of the chart area
+var chartWidth = svgWidth - (margin * 2);
+var chartHeight = svgHeight - (margin * 2);
 
-// // append the svg object to the body of the page
-// var svg = d3.select("#scatter")
-//     .append("svg")
-//     .attr("width", chartWidth)
-//     .attr("height", chartHeight)
+// append the svg object to the body of the page
+var svg = d3.select("#d3-scatter")
+    .append("svg")
+    .attr("width", chartWidth)
+    .attr("height", chartHeight)
+
+    console.log("hello world");
+
 
 // // Load data 
 // var queryUrl = "http://127.0.0.1:5000/api/v1.0/Florida_data";
@@ -22,14 +26,16 @@
 // d3.json(queryUrl, function(data) {
 
 d3.csv("static/data/fl_data.csv").then(function(data) {
-    console.log(data)
+    // console.log(data);
     
-    // // X and Y Axis Max/Min Values
-    // var xValMax = d3.max(data.map(d => parseFloat(d.poverty)))*1.10;
-    // var xValMin = d3.min(data.map(d => parseFloat(d.poverty)))*0.90;
-    // var yValMax = d3.max(data.map(d => parseFloat(d.healthcare)))*1.10;
-    // var yValMin = d3.min(data.map(d => parseFloat(d.healthcare)))*0.90;
+    // X and Y Axis Max/Min Values
+    var xValMax = d3.max(data.map(d => d['median income 2018']))*1.10;
+    var xValMin = d3.min(data.map(d => d['median income 2018']))*0.90;
+    var yValMax = d3.max(data.map(d => parseFloat(d['deaths'])))*1.10;
+    var yValMin = d3.min(data.map(d => parseFloat(d['deaths'])))*0.90;
 
+    // console.log(yValMin);
+    
     // // Add X axis
     // var xScale = d3.scaleLinear()
     //     .domain([xValMin, xValMax])
@@ -108,5 +114,5 @@ d3.csv("static/data/fl_data.csv").then(function(data) {
     // .style('font-weight', 'bold');
 
 }).catch(function(error) {
-        console.log(error);
+        // console.log(error);
 });
