@@ -2,7 +2,7 @@
 var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
 var svgHeight = svgWidth - (svgWidth/3.9);
 var margin =  0;
-var pad = 40;
+var pad = 20;
 var labelArea = 110;
 
 // Define dimensions of the chart area
@@ -17,19 +17,22 @@ var svg = d3.select("#d3-scatter")
 
 
 // // Load data 
-var queryUrl = "http://project-2-covid.herokuapp.com/api/v1.0/Florida_data";
+// var queryUrl = "/api/v1.0/Florida_data";
 
 // Perform a GET request to the query URL
-d3.json(queryUrl, function(data) {
+// d3.json(queryUrl, function(data) {
 
-// d3.csv("static/data/fl_data.csv").then(function(data) {
-    console.log(data);
+d3.csv("static/data/fl_data.csv").then(function(data) {
+    // console.log(data);
     
+    var x = 'median income 2018';
+    var y = 'death rate';
+
     // X and Y Axis Max/Min Values
-    var xValMax = d3.max(data.map(d => d['median income 2018']))*1.10;
-    var xValMin = d3.min(data.map(d => d['median income 2018']))*0.90;
-    var yValMax = d3.max(data.map(d => parseFloat(d['deaths'])))*1.10;
-    var yValMin = d3.min(data.map(d => parseFloat(d['deaths'])))*0.90;
+    var xValMax = d3.max(data.map(d => d[x]))*1.10;
+    var xValMin = d3.min(data.map(d => d[x]))*0.90;
+    var yValMax = d3.max(data.map(d => parseFloat(d[y])))*1.10;
+    var yValMin = d3.min(data.map(d => parseFloat(d[y])))*0.90;
     
     // Add X axis
     var xScale = d3.scaleLinear()
@@ -47,10 +50,10 @@ d3.json(queryUrl, function(data) {
         .data(data)
         .enter()
         .append("circle")
-        .attr("cx", function (d) { return xScale(d.poverty) ; } )
-        .attr("cy", function (d) { return yScale(d.healthcare); } )
-        .attr("r", 10)
-        .attr("class", "stateCircle");
+        .attr("cx", function (d) { return xScale(d[x]) ; } )
+        .attr("cy", function (d) { return yScale(d[y]); } )
+        .attr("r", 2);
+        // .attr("class", "stateCircle");
     
         console.log(svg.selectAll("text"));
         
@@ -61,12 +64,12 @@ d3.json(queryUrl, function(data) {
                 .append("text");
     
                 
-    var textLabels = text
-                    .attr("x", function (d) { return  xScale(d.poverty); } )
-                    .attr("y", function (d) { return yScale(d.healthcare -.3); } )
-                    .text(function (d) { return (d.abbr); } )
-                    .attr("class", "stateText")
-                    .attr("font-size", "10px");
+    // var textLabels = text
+    //                 .attr("x", function (d) { return  xScale(d[x]); } )
+    //                 .attr("y", function (d) { return yScale(d[y] -.3); } )
+    //                 .text(function (d) { return (d.abbr); } )
+    //                 .attr("class", "stateText")
+    //                 .attr("font-size", "10px");
 
     // Create axes
     var yAxis = d3.axisLeft(yScale);
@@ -93,8 +96,8 @@ d3.json(queryUrl, function(data) {
         .append('text')
         .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(-90)')
-        .text('Lacks Healthcare (%)')
-        .style('font-weight', 'bold');
+        .text(y);
+        // .style('font-weight', 'bold');
     
     // X axis label
     var axisLabelX = chartHeight/100;
@@ -105,8 +108,8 @@ d3.json(queryUrl, function(data) {
     .attr("text-anchor", "end")
     .attr("x", chartWidth -(chartWidth/2.9))
     .attr("y", chartHeight- (chartHeight/12))
-    .text("In Poverty (%)")
-    .style('font-weight', 'bold');
+    .text(x);
+    // .style('font-weight', 'bold');
 
 }).catch(function(error) {
         // console.log(error);
