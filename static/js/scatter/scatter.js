@@ -1,13 +1,14 @@
 // Define SVG area dimensions
 var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
-var svgHeight = svgWidth - (svgWidth/3.9);
-var margin =  0;
-var pad = 20;
-var labelArea = 110;
+var svgHeight = parseInt(d3.select('#d3-scatter').style('height'));
+// svgWidth - (svgWidth/3.9);
+var margin =  svgWidth/100;
+var pad = svgWidth/5;
+var labelArea = svgWidth/5;
 
 // Define dimensions of the chart area
-var chartWidth = svgWidth - (margin * 2);
-var chartHeight = svgHeight - (margin * 2);
+var chartWidth = svgWidth - (margin * 20);
+var chartHeight = svgHeight - (margin * 5);
 
 // append the svg object to the body of the page
 var svg = d3.select("#d3-scatter")
@@ -96,7 +97,7 @@ d3.csv("static/data/fl_data.csv").then(function(data) {
         .append('text')
         .attr('text-anchor', 'middle')
         .attr("y", 0 - margin.left)
-        .attr("x", 0 - (chartHeight / 2))
+        .attr("x", 0 - (chartHeight / 20))
         // .attr("dy", "1em")
         .attr('transform', 'rotate(-90)')
         .text(y);
