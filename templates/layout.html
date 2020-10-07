@@ -27,9 +27,11 @@
         </div>
         <div class="col-md-5 body">
           <div class="row">
+            <div class ="col">
             {% block gauge_chart_state %}
             {% include "modules/gauge-chart-state.html" %}
             {% endblock gauge_chart_state %}
+          </div>
           </div>
           <div class="row">
             <div class="col">
@@ -39,9 +41,11 @@
             </div>
           </div>
           <div class="row">
+            <div class="col">
             {% block d3_scatter %}
             {% include "modules/d3-scatter.html" %}
             {% endblock d3_scatter %}
+            </div>
           </div>
         </div>
       </div>
