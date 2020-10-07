@@ -1,15 +1,15 @@
-{% block menu %}
+{% block d3_scatter %}
+
+<link rel="stylesheet" href="static/menu/menu.css">
 
 <div id="menu">
   <h1>Menu Bar</h1>
-  <h3>Filter: (1) State (2) County</h3>
+  <label for="state-dropdown">State</label>
   <select id="state-dropdown" name="state-dropdown"></select>
-  <select id="county-dropdown" name="county-dropdown" >
-  </select>
+  <label for="county-dropdown">County</label>
+  <select id="county-dropdown" name="county-dropdown"></select>
 </div>
+<script src="static/menu/states.js"></script>
+<script src="static/menu/dropdowns.js"></script>
 
-
-<script src="static/js/menu/states.js"></script>
-<script src="static/js/menu/dropdowns.js"></script>
-
-{% endblock menu %}
+{% endblock d3_scatter %}

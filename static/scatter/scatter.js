@@ -1,29 +1,35 @@
 // Define SVG area dimensions
 var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
-var svgHeight = parseInt(d3.select('#d3-scatter').style('height'));
+var svgHeight = 400;
 var hHeight = parseInt(d3.select('#scatter-title-height').style('height'));
-var plotSpace = svgHeight - hHeight;
 
 // console.log(svgWidth, svgHeight);
 // svgWidth - (svgWidth/3.9);
-var margin =  svgWidth/100;
-var pad = svgWidth/5;
-var labelArea = svgWidth/5;
+
+var margin = {t:10, r:30, b:80, l:100} 
+// svgWidth/100;
+// var pad = svgWidth/5;
+// var labelArea = svgWidth/5;
 
 // Define dimensions of the chart area
-var chartWidth = 370;
+var chartWidth = svgWidth-margin.l-margin.r;
 // svgWidth - (margin * 20);
 // 370 
-var chartHeight = plotSpace;
+var chartHeight = svgHeight - hHeight-margin.t-margin.b;
 // 300
 // svgHeight - (margin * 5);
 
 // append the svg object to the body of the page
 var svg = d3.select("#d3-scatter")
     .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight)
+    .call(responsivefy)
+
+var chart = svg.append('g')
+    .attr("transform",`translate(${margin.l} ${margin.t})`)
     .attr("width", chartWidth)
     .attr("height", chartHeight)
-
 
 // // Load data 
 // var queryUrl = "/api/v1.0/Florida_data";
@@ -52,28 +58,29 @@ function scatter_plot(data_origin){
         // Add X axis
         var xScale = d3.scaleLinear()
             .domain([xValMin, xValMax])
-            .range([ margin + labelArea, svgWidth - margin ]);
+            .range([0, chartWidth])
 
         // Add Y axis
         var yScale = d3.scaleLinear()
             .domain([yValMin, yValMax])
-            .range([ svgHeight - margin - labelArea, margin]);
+            .range([chartHeight, 0]);
 
         // Add dots
-        svg.append('g')
+        chart.append('g')
             .selectAll("circle")
             .data(data)
             .enter()
             .append("circle")
             .attr("cx", function (d) { return xScale(d[x]) ; } )
             .attr("cy", function (d) { return yScale(d[y]); } )
-            .attr("r", 2);
+            .attr("r", 5)
+            .classed('bubbles',true);
             // .attr("class", "stateCircle");
         
             console.log(svg.selectAll("text"));
             
             // Add Text
-        var text = svg.selectAll("text")
+        var text = chart.selectAll("text")
                     .data(data)
                     .enter()
                     .append("text");
@@ -88,38 +95,40 @@ function scatter_plot(data_origin){
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
-        var xAxis = d3.axisBottom(xScale);
+        var xAxis = d3.axisBottom(xScale)
+            .ticks(4)
+            .tickFormat(d=> '$'+d3.format(',')(d))
 
         // Set x to the bottom of the chart
-        svg.append("g")
-        .call(xAxis)
-        .attr('class','xAxis')
+        chart.append("g")
+            .attr("transform", `translate(0, ${chartHeight})`)
+            .call(xAxis)
+            .attr('class','xAxis')
         // Testing calc
         // group margin and label area translation - shift down by chart height vs svg height
-        .attr("transform", `translate(0, ${svgHeight - margin - labelArea})`);
+        
 
         // set y to the y axis
-        svg.append("g")
-        .call(yAxis)
-        .attr('class','yAxis')
+        chart.append("g")
+            .call(yAxis)
+            .attr('class','yAxis')
         // Testing calc
-        .attr('transform', `translate(${margin + labelArea}, 0)`);
+        // .attr('transform', `translate(${margin + labelArea}, 0)`);
 
         // Y axis label
         var axisLabelX = chartWidth/10;
         var axisLabelY = chartHeight / 2.5;
         
         svg.append('g')
-            .attr('transform', 'translate(' + axisLabelX + ', ' + axisLabelY + ')')
+            .attr("transform", `translate(${margin.l / 2-15} ${(svgHeight-margin.b)/2})`)
             .append('text')
-            .attr('text-anchor', 'middle')
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (chartHeight / 20))
             // .attr("dy", "1em")
+            .attr('text-anchor', 'middle')
             .attr('transform', 'rotate(-90)')
             .text(y)
-            .style('fill-color', 'black');
-            ;
+            .classed('axis',true)
+            
+            
             // .style('font-weight', 'bold');
         
         // X axis label
@@ -127,11 +136,11 @@ function scatter_plot(data_origin){
         var axisLabelY = chartWidth / 2;
         
         svg.append("text")
-        .attr("class", "x label")
-        .attr("text-anchor", "end")
-        .attr("x", chartWidth -(chartWidth/2.9))
-        .attr("y", chartHeight- (chartHeight/12))
-        .text(x);
+            // .attr("text-anchor", "end")
+            .attr("x", (svgWidth- (svgWidth-chartWidth))/2+20)
+            .attr("y", svgHeight - margin.b/2-10)
+            .text(x)
+            .classed('axis',true)
         // .style('font-weight', 'bold');
 
   

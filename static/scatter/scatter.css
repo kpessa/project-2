@@ -1,0 +1,23 @@
+#d3-scatter h3 {
+  font-family: tahoma;
+  font-size: 1.5em;
+  color:black;
+}
+
+.axis {
+  font-family: tahoma;
+  font-size: 20px;
+  fill:black;
+}
+
+.yAxis {
+  font-family: tahoma;
+  font-size: 16px;
+  color:black;
+}
+
+.xAxis {
+  font-family: tahoma;
+  font-size: 16px;
+  color:black;
+}
