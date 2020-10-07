@@ -3,6 +3,11 @@
   height:100%;
 }
 
+.small {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 /* #map {
   padding-top: 20px;
   background-color: lightseagreen;

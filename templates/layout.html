@@ -4,52 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>COVID-19 Dashboard</title>
-    
-    {% block head %}
-    {% include "head.html" %}
-    {% endblock head %}
-    
+
+    {% block head %} {% include "head.html" %} {% endblock head %}
   </head>
   <body>
-    <div class="container">
+    <div class="container my-container">
       <div class="row">
         <div class="col">
-          {% block menu%}
-          {% include "modules/menu.html" %}
-          {% endblock menu %}
+          {% block menu%} {% include "modules/menu.html" %} {% endblock menu %}
         </div>
       </div>
       <div class="row">
         <div class="col-md-7 body">
-          {% block map%}
-          {% include "modules/map.html" %}
-          {% endblock map %}
+          {% block map%} {% include "modules/map.html" %} {% endblock map %}
         </div>
-        <div class="col-md-5 body">
+        <div class="col-md-5 body right-col">
           <div class="row">
-            {% block gauge_chart_state %}
-            {% include "modules/gauge-chart-state.html" %}
-            {% endblock gauge_chart_state %}
-          </div>
-          <div class="row">
-            <div class="col">
-              {% block gauge_chart_county %}
-              {% include "modules/gauge-chart-county.html" %}
-              {% endblock gauge_chart_county %}
+            <div class="col right-col">
+              {% block gauge_chart_state %} {% include
+              "modules/gauge-chart-state.html" %} {% endblock gauge_chart_state
+              %}
             </div>
           </div>
           <div class="row">
-            {% block d3_scatter %}
-            {% include "modules/d3-scatter.html" %}
-            {% endblock d3_scatter %}
+            <div class="col right-col">
+              {% block gauge_chart_county %} {% include
+              "modules/gauge-chart-county.html" %} {% endblock
+              gauge_chart_county %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col right-col">
+              {% block d3_scatter %} {% include "modules/d3-scatter.html" %} {%
+              endblock d3_scatter %}
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    {% block body_scripts %}
-    {% include "body-scripts.html" %}
-    {% endblock body_scripts %}
-
+    {% block body_scripts %} {% include "body-scripts.html" %} {% endblock
+    body_scripts %}
   </body>
 </html>

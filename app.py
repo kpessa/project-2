@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template
 from matplotlib import style
 import os
 import sqlite3
+import pandas as pd
 from os import environ
 
 # Path to sqlite DB
@@ -145,6 +146,20 @@ def florida_data():
 
     # Return data
     return (j_florida_data_return)
+
+@app.route('/api/v1.0/Florida_data/<county>')
+def florida_data_county(county):
+    # Connect to sqlite db
+    conn = sqlite3.connect(covid_db_path)
+    queryStr = f'SELECT * FROM florida_data WHERE county="{county}";'
+    # Extract data
+    county_data = pd.read_sql(queryStr, conn)
+    county_data.set_index('county',inplace=True)
+    returnValue = county_data.to_dict(orient='index')    
+
+    conn.close
+
+    return returnValue
 
 if(__name__=='__main__'):
     app.run(debug=True)
