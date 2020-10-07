@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template
 from matplotlib import style
 import os
 import sqlite3
+from os import environ
 
 # Path to sqlite DB
 covid_db_path = os.path.join('database','covid_factors_database.sqlite')
@@ -13,6 +14,13 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template("layout.html")
+
+# API_KEY
+@app.route('/secret/API_KEY')
+def api_key():
+    return jsonify({"API_KEY": environ.get('API_KEY')})
+    
+    
 
 # USA COVID-19 related API
 @app.route('/api/v1.0/USA_data')
