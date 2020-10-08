@@ -36,7 +36,6 @@ d3.json("/secret/API_KEY").then((api_json) => {
       
     };
 
-    
     let mymap = L.map("map", {
       layers: [light, case_rate],
     }).setView([28, -83.5], 7);
