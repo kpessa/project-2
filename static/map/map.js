@@ -13,7 +13,6 @@ d3.json("/secret/API_KEY").then((api_json) => {
     Dark: dark,
   };
 
-
   d3.json("static/map/florida_data.geojson").then((florida_data) => {
     
     let cases = createOverlay(florida_data, "fl_data_cases");
@@ -25,25 +24,25 @@ d3.json("/secret/API_KEY").then((api_json) => {
     let uninsured_perc = createOverlay(florida_data, "fl_data_uninsured percent")
     let poor_health = createOverlay(florida_data, "fl_data_fair or poor health percent")
 
-
     var overlayMaps = { 
       "Uninsured %": uninsured_perc,
       "Fair or Poor Health %": poor_health,
       "Median Income": median_income,
       "Population": population,
-      "Cases": cases,
-      "Case Rate": case_rate,
-      "Deaths": deaths,
-      "Death Rate": death_rate
+      '<img src="static/images/cases.png"><span> Cases</span>': cases,
+      '<img src="static/images/cases.png"><span> Case Rate</span>': case_rate,
+      '<img src="static/images/deaths.png"><span> Deaths</span>': deaths,
+      '<img src="static/images/deaths.png"><span> Death Rate</span>': death_rate
       
     };
 
-        var mymap = L.map("map", {
-          layers: [light, case_rate],
-        }).setView([28, -83.5], 7);
+    
+    let mymap = L.map("map", {
+      layers: [light, case_rate],
+    }).setView([28, -83.5], 7);
 
-        L.control.layers(baseMaps, overlayMaps).addTo(mymap);
-        info.addTo(mymap)
+    L.control.layers(baseMaps, overlayMaps).addTo(mymap);
+    info.addTo(mymap)
     
   });
 });
