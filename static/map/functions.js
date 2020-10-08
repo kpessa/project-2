@@ -1,3 +1,4 @@
+
 const makeLayer = (id, API_KEY) => {
   return L.tileLayer ("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -12,6 +13,8 @@ const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+const getMax = (florida_data, variable) => d3.max(florida_data.features.map(feature => +feature.properties[variable]))
+  
 
 
 const getColor = (d,scale) => {

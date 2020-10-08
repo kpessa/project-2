@@ -8,8 +8,9 @@
 }
 
 .info h4 {
+  font-weight: bold;
   margin: 0 0 5px;
-  color: #777;
+  /* color: #777; */
 }
 
 .info .label {
@@ -17,4 +18,9 @@
   font-weight: bold;
   font-size: 12px;
   padding-right: 5px;
+}
+
+.asterick {
+  font-size:10px; 
+  font-style: italic;
 }
