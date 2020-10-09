@@ -73,41 +73,41 @@ info.update = function (props) {
   this._div.innerHTML =  props ? `<strong><h4>${props.NAMELSAD10}</h4><strong><hr>
   <table>
     <tr>
-      <td class="label">Case Rate*</td>
-      <td>${(+props["fl_data_case rate"]).toFixed(2)}</td>
+      <td class="label"><img src="static/images/cases.png"> Case Rate*</td>
+      <td class="datum">${(+props["fl_data_case rate"]).toFixed(2)}</td>
     </tr>
     <tr>
-      <td class="label">Death Rate*</td>
-      <td>${(+props["fl_data_death rate"]).toFixed(4)}</td>
+      <td class="label"><img src="static/images/deaths.png"> Death Rate*</td>
+      <td class="datum">${(+props["fl_data_death rate"]).toFixed(4)}</td>
     </tr>
     <tr><td colspan="2"><p class="asterick">* per 100,000 population</p></td></tr>
     <tr><td colspan="2"><hr></td></tr>
     <tr>
-      <td class="label">Uninsured</td>
-      <td>${(+props["fl_data_uninsured percent"]).toFixed(0)}%</td>
+      <td class="label"><img src="static/images/uninsured.png"> Uninsured</td>
+      <td class="datum">${(+props["fl_data_uninsured percent"]).toFixed(0)}%</td>
     </tr>
     <tr>
-      <td class="label">Fair or Poor Health</td>
-      <td>${(+props["fl_data_fair or poor health percent"]).toFixed(0)}%</td>
+      <td class="label"><img src="static/images/poorhealth.png"> Fair or Poor Health</td>
+      <td class="datum">${(+props["fl_data_fair or poor health percent"]).toFixed(0)}%</td>
     </tr>
   <tr><td colspan="2"><hr></td></tr>
     <tr>
-      <td class="label">Median Income</td>
-      <td>$${numberWithCommas((+props["fl_data_median income 2018"]).toFixed(0))}</td>
+      <td class="label"><img src="static/images/cash.png"> Median Income</td>
+      <td class="datum">$${numberWithCommas((+props["fl_data_median income 2018"]).toFixed(0))}</td>
     </tr>
     <tr>
-      <td class="label">Population</td>
-      <td>${+props["fl_data_population"]>0 ? numberWithCommas((+props["fl_data_population"]).toFixed(0)) : "missing data"}</td>
+      <td class="label"><img src="static/images/people.png"> Population</td>
+      <td class="datum">${+props["fl_data_population"]>0 ? numberWithCommas((+props["fl_data_population"]).toFixed(0)) : "missing data"}</td>
     </tr>
     <tr><td colspan="2"><hr></td></tr>
     <tr>
-      <td class="label">Cases</td>
-      <td>${numberWithCommas(props["fl_data_cases"])}</td>
+      <td class="label"><img src="static/images/cases.png"> Cases</td>
+      <td class="datum">${numberWithCommas(props["fl_data_cases"])}</td>
     </tr>
     
     <tr>
-      <td class="label">Deaths</td>
-      <td>${numberWithCommas(props["fl_data_deaths"])}</td>
+      <td class="label"><img src="static/images/deaths.png"> Deaths</td>
+      <td class="datum">${numberWithCommas(props["fl_data_deaths"])}</td>
     </tr>
     
   </table>
