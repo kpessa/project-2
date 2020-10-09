@@ -57,6 +57,7 @@ var highlightFeature = e => {
 var zoomToFeature = e => {
   let county = e.target.feature.properties.NAME10
   document.getElementById("county-dropdown").value = county
+  makePlotlyChart();
   mymap.fitBounds(e.target.getBounds())
 }
 

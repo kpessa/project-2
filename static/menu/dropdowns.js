@@ -33,6 +33,7 @@ d3.select('#county-dropdown')
     d3.json(`/api/v1.0/Florida_data/${county}`).then(data => {
       console.log(data)
     })
+    makePlotlyChart();
   })
 
 

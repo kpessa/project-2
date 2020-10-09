@@ -70,27 +70,6 @@ h1 {
   opacity:0.75;
 }
 
-#gauge-chart-state,
-#gauge-chart-county {
-  border: 2px solid black;
-  height: 250px;
-   /* !important; */
-  padding-top: 20px;
-  width:100%;
-  background-color: purple;
-  text-align:center;
-}
 
-#gauge-chart-county {
-  border-top: 0px solid black;
-  overflow-wrap: break-word ;
-  /* !important; */
-}
-
-#gauge-chart-state h1,
-#gauge-chart-county h1 {
-  font-size: 24px;
-  color: white;
-}
 
 
