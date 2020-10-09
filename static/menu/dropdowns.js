@@ -27,5 +27,13 @@ d3.json("/api/v1.0/Florida_data").then(flData => {
 
 })
 
+d3.select('#county-dropdown')
+  .on("change", function () { 
+    var county = document.getElementById("county-dropdown").value
+    d3.json(`/api/v1.0/Florida_data/${county}`).then(data => {
+      console.log(data)
+    })
+  })
+
 
 
