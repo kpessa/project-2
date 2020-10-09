@@ -1,26 +1,15 @@
 // Define SVG area dimensions
-
 var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
 var svgHeight = 400;
 var hHeight = parseInt(d3.select('#scatter-title-height').style('height'));
-
-// console.log(svgWidth, svgHeight);
-// svgWidth - (svgWidth/3.9);
-
 var margin = { t: 10, r: 30, b: 80, l: 100 }
-// svgWidth/100;
-// var pad = svgWidth/5;
-// var labelArea = svgWidth/5;
 
 // Define dimensions of the chart area
 var chartWidth = svgWidth - margin.l - margin.r;
-// svgWidth - (margin * 20);
-// 370 
 var chartHeight = svgHeight - hHeight - margin.t - margin.b;
-// 300
-// svgHeight - (margin * 5);
 
-// append the svg object to the body of the page
+
+// Append the svg object to the body of the page
 var svg = d3.select("#d3-scatter")
     .append("svg")
     .attr("width", svgWidth)
@@ -35,9 +24,6 @@ var chart = svg.append('g')
 // Relative path for data origin 
 var queryUrl = "/api/v1.0/Florida_data";
 
-//  CSV Testing
-// var queryUrl = "static/data/fl_data.csv";
-
 // Loads Scatter
 scatter_plot(queryUrl)
 
@@ -46,33 +32,18 @@ function scatter_plot(data_origin) {
 
     // Perform a GET request to the query URL
     d3.json(data_origin).then(function(data) {
-        // console.log('here i am');
-        // d3.csv(data_origin).then(function(data) {
-        // console.log(data);
 
         var x = 'median income (2018)';
         var y = 'death rate';
 
-        // X and Y Axis Max/Min Values
+        // X and Y axis array extraction
         var xVals = Object.values(data).map(d => d[x]);
         var yVals = Object.values(data).map(d => d[y]);
 
-        // (d,i)
-
-        // console.log(typeof(yVals));
         console.log(Array.isArray(xVals));
         console.log(xVals);
-        // var test = Object.values(yVals);
-        // console.log(test);
 
-
-        // Min and Max x and y axis values
-        // var xValMax = Math.max.apply(Math, Object.values(xVals))* 1.10;
-        // var xValMin = Math.min.apply(Math, Object.values(xVals))* 0.90;
-        // var yValMax = Math.max.apply(Math, Object.values(yVals))* 1.10;
-        // var yValMin = Math.min.apply(Math, Object.values(yVals))* 0.90;
-        
-
+        // X and Y max/min values
         var xValMax = d3.max(xVals) * 1.10;
         var xValMin = d3.min(xVals) * 0.90;
         var yValMax = d3.max(yVals) * 1.10;
