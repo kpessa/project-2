@@ -7,7 +7,7 @@ const makePlotlyChart = () => {
   d3.select("#gauge-title").text(`${county} vulnerability score`)
 
     d3.json(`/api/v1.0/Florida_data/${county}`).then((data) => {
-      
+        
           // Initiate variables - Remove [0] after updating with functions
           let county_score = Object.values(data).map(d => d['ccvi score'])[0];
           
