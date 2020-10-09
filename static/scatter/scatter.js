@@ -96,35 +96,16 @@ function scatter_plot(data_origin) {
             .data(xVals)
             .enter()
             .append("circle")
-            // .attr("cx", d => xScale(Object.values(d).map(r => r[x])))
-            // .attr("cy", d => yScale(Object.values(d).map(r => r[y])))
-            // .attr("cx", function(d) { return xScale(Object.values(data).map(d => d[x])); })
-            // .attr("cy", function(d) { return yScale(Object.values(data).map(d => d[y])); })
-            // .attr("cx", function(d) { return xScale(d["death rate"]); })
             .attr("cx", function(d,i) { return xScale(d); })
             .attr("cy", function(d,i) { return yScale(yVals[i]); })
-
-            // .attr("cx", function (d) { return xScale(Object.values(d[x])); })
-            // .attr("cy", function (d) { return yScale(Object.values(d[y])); })
             .attr("r", 5)
             .classed('bubbles', true);
-        // .attr("class", "stateCircle");
-
-        // console.log(svg.selectAll("text"));
 
         // Add Text
         var text = chart.selectAll("text")
             .data(data)
             .enter()
             .append("text");
-
-
-        // var textLabels = text
-        //                 .attr("x", function (d) { return  xScale(d[x]); } )
-        //                 .attr("y", function (d) { return yScale(d[y] -.3); } )
-        //                 .text(function (d) { return (d.abbr); } )
-        //                 .attr("class", "stateText")
-        //                 .attr("font-size", "10px");
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
@@ -137,16 +118,11 @@ function scatter_plot(data_origin) {
             .attr("transform", `translate(0, ${chartHeight})`)
             .call(xAxis)
             .attr('class', 'xAxis')
-        // Testing calc
-        // group margin and label area translation - shift down by chart height vs svg height
 
-
-        // set y to the y axis
+        // Set y to the y axis
         chart.append("g")
             .call(yAxis)
             .attr('class', 'yAxis')
-        // Testing calc
-        // .attr('transform', `translate(${margin + labelArea}, 0)`);
 
         // Y axis label
         var axisLabelX = chartWidth / 10;
@@ -155,27 +131,23 @@ function scatter_plot(data_origin) {
         svg.append('g')
             .attr("transform", `translate(${margin.l / 2 - 15} ${(svgHeight - margin.b) / 2})`)
             .append('text')
-            // .attr("dy", "1em")
             .attr('text-anchor', 'middle')
             .attr('transform', 'rotate(-90)')
             .text(y)
             .classed('axis', true)
-
-
-        // .style('font-weight', 'bold');
 
         // X axis label
         var axisLabelX = chartHeight / 100;
         var axisLabelY = chartWidth / 2;
 
         svg.append("text")
-            // .attr("text-anchor", "end")
             .attr("x", (svgWidth - (svgWidth - chartWidth)) / 2 + 20)
             .attr("y", svgHeight - margin.b / 2 - 10)
             .text(x)
             .classed('axis', true)
-        // .style('font-weight', 'bold');
 
+// highlighting a circle
+// potentially need to work on the regression line if
 
     });
 };

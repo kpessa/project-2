@@ -7,10 +7,11 @@
 .axis {
   font-family: tahoma;
   font-size: 20px;
+  text-transform:capitalize;
   fill:black;
 }
 
-.yAxis {
+.yAxis{
   font-family: tahoma;
   font-size: 16px;
   color:black;
