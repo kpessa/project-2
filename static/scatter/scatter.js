@@ -57,19 +57,26 @@ function scatter_plot(data_origin) {
         var xVals = Object.values(data).map(d => d[x]);
         var yVals = Object.values(data).map(d => d[y]);
 
+        // (d,i)
 
-        console.log((typeof( yVals)));
-        
+        // console.log(typeof(yVals));
+        console.log(Array.isArray(xVals));
+        console.log(xVals);
         // var test = Object.values(yVals);
         // console.log(test);
 
 
         // Min and Max x and y axis values
-        var xValMax = Math.max.apply(Math, Object.values(xVals))* 1.10;
-        var xValMin = Math.min.apply(Math, Object.values(xVals))* 0.90;
-        var yValMax = Math.max.apply(Math, Object.values(yVals))* 1.10;
-        var yValMin = Math.min.apply(Math, Object.values(yVals))* 0.90;
+        // var xValMax = Math.max.apply(Math, Object.values(xVals))* 1.10;
+        // var xValMin = Math.min.apply(Math, Object.values(xVals))* 0.90;
+        // var yValMax = Math.max.apply(Math, Object.values(yVals))* 1.10;
+        // var yValMin = Math.min.apply(Math, Object.values(yVals))* 0.90;
         
+
+        var xValMax = d3.max(xVals) * 1.10;
+        var xValMin = d3.min(xVals) * 0.90;
+        var yValMax = d3.max(yVals) * 1.10;
+        var yValMin = d3.min(yVals) * 0.90;
         console.log(xValMax, xValMin, yValMax, yValMin);
 
 
@@ -86,11 +93,16 @@ function scatter_plot(data_origin) {
         // Add dots
         chart.append('g')
             .selectAll("circle")
-            .data(data)
+            .data(xVals)
             .enter()
             .append("circle")
-            .attr("cx", function(d) { return xScale(Object.values(data).map(d => d[x])); })
-            .attr("cy", function(d) { return yScale(Object.values(data).map(d => d[y])); })
+            // .attr("cx", d => xScale(Object.values(d).map(r => r[x])))
+            // .attr("cy", d => yScale(Object.values(d).map(r => r[y])))
+            // .attr("cx", function(d) { return xScale(Object.values(data).map(d => d[x])); })
+            // .attr("cy", function(d) { return yScale(Object.values(data).map(d => d[y])); })
+            // .attr("cx", function(d) { return xScale(d["death rate"]); })
+            .attr("cx", function(d,i) { return xScale(d); })
+            .attr("cy", function(d,i) { return yScale(yVals[i]); })
 
             // .attr("cx", function (d) { return xScale(Object.values(d[x])); })
             // .attr("cy", function (d) { return yScale(Object.values(d[y])); })
