@@ -3,13 +3,29 @@
 <link rel="stylesheet" href="static/menu/menu.css">
 
 <div id="menu">
-  <h1>Menu Bar</h1>
-  <label for="state-dropdown">State</label>
-  <select id="state-dropdown" name="state-dropdown"></select>
-  <label for="county-dropdown">County</label>
-  <select id="county-dropdown" name="county-dropdown"></select>
+  <table>
+    <tr>  
+      <td>
+        <table class="logo">
+          <tr>
+            <td><img src="static/images/covid19.png" alt=""></td>
+            <td class="logo-title"><h1>COVID Dashboard</h1></td>
+          </tr>
+        </table>
+      </td>
+      <td class="dropdowns-td">
+        <div class="dropdowns">
+          <label for="state-dropdown">State</label>
+          <select id="state-dropdown" name="state-dropdown"></select>
+          <label for="county-dropdown">County</label>
+          <select id="county-dropdown" name="county-dropdown"></select>
+        </div>
+      </td>
+    </tr>
+  </table>
 </div>
+<script src="static/js/anime.min.js"></script>
 <script src="static/menu/states.js"></script>
-<script src="static/menu/dropdowns.js"></script>
+<script src="static/menu/menu.js"></script>
 
 {% endblock d3_scatter %}
