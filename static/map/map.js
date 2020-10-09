@@ -30,10 +30,10 @@ d3.json("static/map/florida_data.geojson").then((florida_data) => {
   var poor_health = createOverlay(florida_data, "fl_data_fair or poor health percent")
 
   var overlayMaps = { 
-    "Uninsured %": uninsured_perc,
-    "Fair or Poor Health %": poor_health,
-    "Median Income": median_income,
-    "Population": population,
+    '<img src="static/images/uninsured.png"> Uninsured %': uninsured_perc,
+    '<img src="static/images/poorhealth.png"> Fair or Poor Health %': poor_health,
+    '<img src="static/images/cash.png"> Median Income': median_income,
+    '<img src="static/images/people.png"> Population': population,
     '<img src="static/images/cases.png"><span> Cases</span>': cases,
     '<img src="static/images/cases.png"><span> Case Rate</span>': case_rate,
     '<img src="static/images/deaths.png"><span> Deaths</span>': deaths,
@@ -45,5 +45,6 @@ d3.json("static/map/florida_data.geojson").then((florida_data) => {
   L.control.layers(baseMaps, overlayMaps).addTo(mymap);
   info.addTo(mymap)
   
+
 });
 
