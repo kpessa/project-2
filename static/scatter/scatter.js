@@ -2,24 +2,13 @@
 var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
 var svgHeight = 400;
 var hHeight = parseInt(d3.select('#scatter-title-height').style('height'));
-
-// console.log(svgWidth, svgHeight);
-// svgWidth - (svgWidth/3.9);
-
-var margin = {t:10, r:30, b:80, l:100} 
-// svgWidth/100;
-// var pad = svgWidth/5;
-// var labelArea = svgWidth/5;
+var margin = { t: 10, r: 30, b: 80, l: 100 }
 
 // Define dimensions of the chart area
-var chartWidth = svgWidth-margin.l-margin.r;
-// svgWidth - (margin * 20);
-// 370 
-var chartHeight = svgHeight - hHeight-margin.t-margin.b;
-// 300
-// svgHeight - (margin * 5);
+var chartWidth = svgWidth - margin.l - margin.r;
+var chartHeight = svgHeight - hHeight - margin.t - margin.b;
 
-// append the svg object to the body of the page
+// Append the svg object to the body of the page
 var svg = d3.select("#d3-scatter")
     .append("svg")
     .attr("width", svgWidth)
@@ -27,34 +16,58 @@ var svg = d3.select("#d3-scatter")
     .call(responsivefy)
 
 var chart = svg.append('g')
-    .attr("transform",`translate(${margin.l} ${margin.t})`)
+    .attr("transform", `translate(${margin.l} ${margin.t})`)
     .attr("width", chartWidth)
     .attr("height", chartHeight)
 
-// // Load data 
-// var queryUrl = "/api/v1.0/Florida_data";
+// Relative path for data origin 
+var queryUrl = "/api/v1.0/Florida_data";
 
-// Perform a GET request to the query URL
-// d3.json(queryUrl, function(data) {
+// Loads Scatter
+scatter_plot(queryUrl)
 
-var data_url = "static/data/fl_data.csv";
-scatter_plot(data_url)
+// Initial X and Y params
+var chosenXAxis  = 'median income (2018)';
+var chosenYAxis = 'death rate';
 
-function scatter_plot(data_origin){
+// // Function used for updating x-scale var upon click on axis label
+// function xScale(data, chosenXAxis) {
+//     // create scales
+//     var xLinearScale = d3.scaleLinear()
+//       .domain([d3.min(Object.values(data).map(d => d[chosenXAxis])) * 0.8,
+//         d3.max(Object.values(data).map(d => d[chosenXAxis])) * 1.2
+//       ])
+//       .range([0, chartWwidth]);
+  
+//     return xLinearScale;
+  
+//   }
 
+// Function that populates the scatter plot
+function scatter_plot(data_origin) {
 
-    d3.csv(data_origin).then(function(data) {
-        // console.log(data);
+    // Perform a GET request to the query URL
+    d3.json(data_origin).then(function(data) {
         
-        var x = 'median income 2018';
-        var y = 'death rate';
+        // xScaleChange(data, x, y);
 
-        // X and Y Axis Max/Min Values
-        var xValMax = d3.max(data.map(d => d[x]))*1.10;
-        var xValMin = d3.min(data.map(d => d[x]))*0.90;
-        var yValMax = d3.max(data.map(d => parseFloat(d[y])))*1.10;
-        var yValMin = d3.min(data.map(d => parseFloat(d[y])))*0.90;
-        
+        // console.log(d3.min(data, d => Object.values(d).map(r => r[x])));
+
+        // X and Y axis array extraction
+        var xVals = Object.values(data).map(d => d[chosenXAxis]);
+        var yVals = Object.values(data).map(d => d[chosenYAxis]);
+
+        console.log(Array.isArray(xVals));
+        // console.log(xVals);
+
+        // X and Y max/min values
+        var xValMax = d3.max(xVals) * 1.10;
+        var xValMin = d3.min(xVals) * 0.90;
+        var yValMax = d3.max(yVals) * 1.10;
+        var yValMin = d3.min(yVals) * 0.90;
+        // console.log(xValMax, xValMin, yValMax, yValMin);
+
+
         // Add X axis
         var xScale = d3.scaleLinear()
             .domain([xValMin, xValMax])
@@ -68,84 +81,64 @@ function scatter_plot(data_origin){
         // Add dots
         chart.append('g')
             .selectAll("circle")
-            .data(data)
+            .data(xVals)
             .enter()
             .append("circle")
-            .attr("cx", function (d) { return xScale(d[x]) ; } )
-            .attr("cy", function (d) { return yScale(d[y]); } )
+            .attr("cx", function(d,i) { return xScale(d); })
+            .attr("cy", function(d,i) { return yScale(yVals[i]); })
             .attr("r", 5)
-            .classed('bubbles',true);
-            // .attr("class", "stateCircle");
-        
-            console.log(svg.selectAll("text"));
-            
-            // Add Text
+            .classed('bubbles', true);
+
+        // Add Text
         var text = chart.selectAll("text")
-                    .data(data)
-                    .enter()
-                    .append("text");
-        
-                    
-        // var textLabels = text
-        //                 .attr("x", function (d) { return  xScale(d[x]); } )
-        //                 .attr("y", function (d) { return yScale(d[y] -.3); } )
-        //                 .text(function (d) { return (d.abbr); } )
-        //                 .attr("class", "stateText")
-        //                 .attr("font-size", "10px");
+            .data(data)
+            .enter()
+            .append("text");
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
         var xAxis = d3.axisBottom(xScale)
             .ticks(4)
-            .tickFormat(d=> '$'+d3.format(',')(d))
+            .tickFormat(d => '$' + d3.format(',')(d))
 
         // Set x to the bottom of the chart
         chart.append("g")
             .attr("transform", `translate(0, ${chartHeight})`)
             .call(xAxis)
-            .attr('class','xAxis')
-        // Testing calc
-        // group margin and label area translation - shift down by chart height vs svg height
-        
+            .attr('class', 'xAxis')
 
-        // set y to the y axis
+        // Set y to the y axis
         chart.append("g")
             .call(yAxis)
-            .attr('class','yAxis')
-        // Testing calc
-        // .attr('transform', `translate(${margin + labelArea}, 0)`);
+            .attr('class', 'yAxis')
 
         // Y axis label
-        var axisLabelX = chartWidth/10;
+        var axisLabelX = chartWidth / 10;
         var axisLabelY = chartHeight / 2.5;
-        
         svg.append('g')
-            .attr("transform", `translate(${margin.l / 2-15} ${(svgHeight-margin.b)/2})`)
+            .attr("transform", `translate(${margin.l / 2 - 15} ${(svgHeight - margin.b) / 2})`)
             .append('text')
-            // .attr("dy", "1em")
             .attr('text-anchor', 'middle')
             .attr('transform', 'rotate(-90)')
-            .text(y)
-            .classed('axis',true)
-            
-            
-            // .style('font-weight', 'bold');
-        
+            .text(chosenXAxis)
+            .classed('axis', true)
+
         // X axis label
-        var axisLabelX = chartHeight/100;
+        var axisLabelX = chartHeight / 100;
         var axisLabelY = chartWidth / 2;
-        
         svg.append("text")
-            // .attr("text-anchor", "end")
-            .attr("x", (svgWidth- (svgWidth-chartWidth))/2+20)
-            .attr("y", svgHeight - margin.b/2-10)
-            .text(x)
-            .classed('axis',true)
-        // .style('font-weight', 'bold');
+            .attr("x", (svgWidth - (svgWidth - chartWidth)) / 2 + 20)
+            .attr("y", svgHeight - margin.b / 2 - 10)
+            .text(chosenXAxis)
+            .classed('axis', true)
 
-  
 
-}).catch(function(error) {
-        // console.log(error);
-});
+
+    });
 };
+
+// })
+// .catch(function(error) {
+//         // console.log(error);
+// });
+// };
