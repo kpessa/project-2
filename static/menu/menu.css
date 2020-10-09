@@ -24,10 +24,11 @@
 }
 
 .logo {
-  padding: 0 5px;
-  background: rgba(211,211,211,0.7);
+  color: white;
+  padding: 20px 20px;
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   filter: drop-shadow(8px 8px 10px black)
 }
 
