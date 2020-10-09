@@ -14,7 +14,7 @@ app = Flask(__name__)
 # Homepage
 @app.route('/')
 def index():
-    return render_template("layout.html")
+    return render_template("layout.html", API_KEY = environ.get('API_KEY'))
 
 # API_KEY
 @app.route('/secret/API_KEY')

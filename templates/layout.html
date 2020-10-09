@@ -17,9 +17,6 @@
       {% include "modules/map.html" %} 
       {% endblock map %}
 
-      <script src="static/map/functions.js"></script>
-      <script src="static/map/map.js"></script>
-
       <div class="col">
         {% block d3_scatter %} 
         {% include "modules/d3-scatter.html" %} 
@@ -32,6 +29,9 @@
         <div id="gauge-chart-county">
           <h1>Guage chart County</h1>
           <h1>vs score</h1>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+          <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+          <script src="static/gauge/gauge.js"></script>
         </div>
       </div>
     </div>

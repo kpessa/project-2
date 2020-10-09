@@ -2,46 +2,50 @@
 // function init() {
 //     d3.json("/api/v1.0/Florida_data").then((data) => {
 //         console.log(data);
-        
+
 //         // Populate dropdown menu with sample ids
 //         let dropdownMenu = d3.select("select");
 //         data.names.forEach(name => {
 //             dropdownMenu.append("option").text(name);
 //             });
-    
+
 //         // Make plots with default sample
 //         buildPlots(data.names[0]);
 //     });
 // }
 
-var data_url = "static/data/fl_data.csv";
-gaugeState(data_url)
+// var data_url = "static/data/fl_data.csv";
+// var data_url = "/api/v1.0/Florida_data";
+// gaugeState(data_url)
 
 // Create function to build new plots
-function gaugeState(data_origin) {
-    d3.csv(data_origin).then((data) => {
-        console.log(data);
+// function gaugeState(fl_data) {
+  d3.json("/api/v1.0/Florida_data").then((data) => {
+    console.log(data);
 
-        // Initiate variables
-        let county_score = data['ccvi score'];
-        let sum = 0;
+        // Initiate variables - Remove [0] after updating with functions
+        let county_score = Object.values(data).map(d => d['ccvi score'])[0];
+        console.log(county_score);
 
-        // Calculate sum of county scores in FL
-        for (var i = 0; i < county_score.length; i++) {
-            let score = county_score[i];
-            sum += score;
-        }
+        // let sum = 0;
 
-        // Calculate average score to make gauge chart
-        let avg = sum / county_score.length;
-        console.log(avg);
-       
+        // // Calculate sum of county scores in FL
+        // for (var i = 0; i < county_score.length; i++) {
+        //     let score = county_score[i];
+        //     sum += score;
+        // }
+        // console.log(sum);
+
+        // // Calculate average score to make gauge chart
+        // let avg = sum / county_score.length;
+        // console.log(avg);
+
 
         // Plot gauge chart
         let gaugeData = [
             {
               domain: { x: [0, 1], y: [0, 1] },
-              value: avg,
+              value: county_score,
             //   title: { text: "Average CCVI Score Florida" },
               type: "indicator",
               mode: "gauge+number",
@@ -58,11 +62,13 @@ function gaugeState(data_origin) {
               }
             }
           ];
-          
+
           let gaugeLayout = { width: 500, height: 400, margin: { t: 0, b: 0 } };
-          Plotly.newPlot('gauge-chart-state', gaugeData, gaugeLayout);
-    })
-}
+          Plotly.newPlot('gauge-chart-county', gaugeData, gaugeLayout);
+  });
+
+
+// };
 
 
 
