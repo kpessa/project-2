@@ -61,7 +61,7 @@ function scatter_plot(data_origin) {
         selectedCounty = document.getElementById("county-dropdown").value;
         
         // Add dots
-        chart.html('')
+        circlesGroup = chart.html('')
         .append('g')
         .selectAll("circle")
         .data(xVals)
@@ -72,6 +72,38 @@ function scatter_plot(data_origin) {
         .attr("r", 5)
         .attr("class", false)
         .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles");
+
+        // Step 1: Append tooltip div
+        var toolTip = d3.select('#d3-scatter')
+            .append("div")
+            .classed("tooltip", true);
+
+        // Step 2: Create "mouseover" event listener to display tooltip
+        circlesGroup
+        // .selectAll("circle")
+            .data(xVals)
+            .enter()
+            .append("path")
+            .on("mouseover", function (d, i) {
+                d3.select('.tooltip')
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(
+                    `<strong>${d}<strong><hr>${yVals[i]}
+                    medal(s) won`)
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY + "px");
+            })
+
+            // Step 3: Create "mouseout" event listener to hide tooltip
+            .on("mouseout", function (d, i) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
+            .attr("class", "point")
+    
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
@@ -139,6 +171,7 @@ function scatter_plot(data_origin) {
             .attr("y", svgHeight - margin.b / 2 - 10)
             .text(chosenXAxis)
             .classed('axis', true)
+
 
     });
 };
