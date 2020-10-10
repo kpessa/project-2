@@ -77,24 +77,39 @@ function scatter_plot(data_origin) {
         var toolTip = d3.select('#d3-scatter')
             .append("div")
             .classed("tooltip", true);
+        
 
         // Step 2: Create "mouseover" event listener to display tooltip
-        circlesGroup
+        // circlesGroup
         // .selectAll("circle")
+        //     .data(xVals)
+        //     .enter()
+        //     .append("path")
+        //     .on("mouseover", function (d, i) {
+        //         d3.select('.tooltip');
+        //         tooltip.transition()
+        //             .duration(200)
+        //             .style("opacity", .9);
+        //         tooltip.html(
+        //             `<strong>${d}<strong><hr>${yVals[i]}
+        //             medal(s) won`)
+        //             .style("left", d3.event.pageX + "px")
+        //             .style("top", d3.event.pageY + "px");
+        //     })
+        circlesGroup
             .data(xVals)
             .enter()
             .append("path")
             .on("mouseover", function (d, i) {
-                d3.select('.tooltip')
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9);
-                tooltip.html(
-                    `<strong>${d}<strong><hr>${yVals[i]}
-                    medal(s) won`)
+                toolTip.style("display", "block");
+                tooltip.html(`<strong>${d}<strong><hr>${yVals[i]} medal(s) won`)
                     .style("left", d3.event.pageX + "px")
                     .style("top", d3.event.pageY + "px");
             })
+            .on("mouseout", function (d, i) {
+                toolTip.style("display", "none");
+            });
+        
 
             // Step 3: Create "mouseout" event listener to hide tooltip
             .on("mouseout", function (d, i) {
@@ -102,7 +117,7 @@ function scatter_plot(data_origin) {
                     .duration(500)
                     .style("opacity", 0);
             })
-            .attr("class", "point")
+            .attr("class", "point");
     
 
         // Create axes
