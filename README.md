@@ -36,13 +36,15 @@ Link to dashboard: https://project-2-covid.herokuapp.com/
 
 * Counties with the higher percentage of population reporting fair or poor health, uninsured population or lower median income (e.g. Hendry and Glades) tend to show a higher vulnerability score (over 0.9), meaning at a greater risk in the face of pandemic.
 
-* Miami-Dade has the highest number of cases, deaths, case rates and death rates (per 100,000 population) as of 9/30/2020, as well as the largest population size. Population and population density may have been some of driving factors for the widespread COVID impact.
+* Miami-Dade has the highest number of cases, deaths, case rates and death rates (per 100,000 population) as of 9/30/2020, as well as the largest population size. 
+
+* Among the variables analyzed in the scatter plot, population appears to have the highest correlation (0.9) with COVID case and death rates. While this might seem intuitive (larger population tends to give larger samples), considering how contagious COVID-19 is, population size and also density may indicate people's ability to socially distance, which is key factor in the spread of COVID cases. 
 
 #### **Ideas for Next Steps**
 
-* Explore further the correlation between population size/density with case number, case rates, death toll and death rates. For example, add population variables to the x-axis of the scatter plot 
+* Explore further the correlation between population density with case number, case rates, death toll and death rates. For example, add population variables to the x-axis of the scatter plot .
 
-* Add data of all other states to the dashboard
+* Add data of all other states/counties to the dashboard and conduct more correlation analyses with larger samples to see how various correlation coefficients may or may not change.
 
 
 
