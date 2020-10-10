@@ -164,7 +164,36 @@ function scatter_plot(data_origin) {
             .call(yAxis)
             .attr('class', 'yAxis')
 
+        // Linear Regression line
+        var dataLinear = []
+        xVals.forEach(function (v, i) {
+            dataLinear.push({ 'x': v, 'y': yVals[i] })
+        });
 
+        // console.log(dataLinear);
+
+        var linearRegression = d3.regressionLinear()
+            .x(d => d.x)
+            .y(d => d.y)
+            .domain([xValMin+3000, xValMax-10000]);
+
+        let res = linearRegression(dataLinear)
+
+        let x = d3.scaleLinear().range([0, chartWidth]);
+        let y = d3.scaleLinear().range([chartHeight, 0]);
+
+        x.domain(d3.extent(dataLinear, (d) => d.x));
+        y.domain(d3.extent(dataLinear, (d) => d.y));
+
+        let line = d3.line()
+            .x((d) => x(d[0]))
+            .y((d) => y(d[1]));
+        
+        chart.append("path")
+            .datum(res)
+            .attr("d", line)
+            .style("stroke", "steelblue")
+            .style("stroke-width", "2px");
 
         // Y axis label
         var axisLabelX = chartWidth / 10;
