@@ -34,8 +34,6 @@ function scatter_plot(data_origin) {
     // Perform a GET request to the query URL
     d3.json(data_origin).then(function (data) {
 
-        console.log(data);
-
         // X and Y axis array extraction
         xVals = Object.values(data).map(d => d[chosenXAxis]);
         yVals = Object.values(data).map(d => d[chosenYAxis]);
@@ -73,7 +71,6 @@ function scatter_plot(data_origin) {
         .attr("class", false)
         .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles");
 
-        
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
@@ -103,6 +100,25 @@ function scatter_plot(data_origin) {
             .y(d => d.y)
             .domain([xValMin+3000, xValMax-10000]);
 
+        chart.append('g')
+            .attr('transform',`translate(${chartWidth-150} 50)`)
+            .append('text')
+                .attr('x',0)
+                .attr('y',0)
+                .classed('legend',true)
+                .text(`r = ${Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2)}`)
+            .append('svg:tspan')
+                .attr('x',0)
+                .attr('dy',20)
+                .classed('legend',true)
+                .text(`R^2 = ${linearRegression(dataLinear).rSquared.toFixed(2)}`)
+
+        console.log(linearRegression(dataLinear).a)
+        console.log("r^2",linearRegression(dataLinear).rSquared)
+        console.log("r",Math.sqrt(linearRegression(dataLinear).rSquared))
+        
+            
+
         let res = linearRegression(dataLinear)
 
         let x = d3.scaleLinear().range([0, chartWidth]);
@@ -130,7 +146,7 @@ function scatter_plot(data_origin) {
             .append('text')
             .attr('text-anchor', 'middle')
             .attr('transform', 'rotate(-90)')
-            .text(chosenXAxis)
+            .text(chosenYAxis)
             .classed('axis', true)
 
         // X axis label

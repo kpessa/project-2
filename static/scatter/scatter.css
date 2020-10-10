@@ -22,3 +22,9 @@
   font-size: 16px;
   color:black;
 }
+
+.legend {
+  font-family: tahoma;
+  font-size: 14px;
+  font-weight: bold;
+}
