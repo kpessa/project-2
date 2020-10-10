@@ -108,15 +108,15 @@ function scatter_plot(data_origin) {
             })
             .on("mouseout", function (d, i) {
                 toolTip.style("display", "none");
-            });
+            })
         
 
-            // Step 3: Create "mouseout" event listener to hide tooltip
-            .on("mouseout", function (d, i) {
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            })
+            // // Step 3: Create "mouseout" event listener to hide tooltip
+            // .on("mouseout", function (d, i) {
+            //     tooltip.transition()
+            //         .duration(500)
+            //         .style("opacity", 0);
+            // })
             .attr("class", "point");
     
 
