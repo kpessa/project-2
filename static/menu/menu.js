@@ -43,7 +43,12 @@ d3.select('#county-dropdown')
     console.log(data)
   })
   makePlotlyChart();
-  scatter_plot(queryUrl);
+
+  var queryUrl = "/api/v1.0/Florida_data"
+  var xaxis = document.getElementById('xaxis').value
+  var yaxis = document.getElementById('yaxis').value
+
+  scatter_plot(queryUrl,xaxis,yaxis)
 })
 
 d3.select('#xaxis')
