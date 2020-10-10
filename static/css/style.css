@@ -59,7 +59,7 @@ h1 {
   height: 400px;
   /* width: 100%; */
   text-align: center;
-  background-color: orange;
+  background-color:lightgrey;
   color: white;
 }
 
@@ -67,7 +67,14 @@ h1 {
   fill: steelblue;
   stroke: black;
   stroke-width: 1px;
-  opacity:0.75;
+  opacity:0.5;
+}
+
+.highlight {
+  fill: red;
+  stroke: black;
+  stroke-width: 1px;
+  opacity:1;
 }
 
 

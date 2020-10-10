@@ -36,7 +36,7 @@ const makePlotlyChart = () => {
       }
     ];
 
-    let gaugeLayout = { width: 500, height: 400, margin: { t: 0, b: 0 } };
+    let gaugeLayout = { width: 500, height: 300, margin: { t: 0, b: 0 } };
     Plotly.newPlot('gauge-plot', gaugeData, gaugeLayout);
   }).catch(err => console.log(err));
 
