@@ -15,6 +15,7 @@ var svg = d3.select("#d3-scatter")
     .attr("height", svgHeight)
     .call(responsivefy)
 
+// Append an SVG group
 var chart = svg.append('g')
     .attr("transform", `translate(${margin.l} ${margin.t})`)
     .attr("width", chartWidth)
@@ -23,12 +24,23 @@ var chart = svg.append('g')
 // Relative path for data origin 
 var queryUrl = "/api/v1.0/Florida_data";
 
-// Loads Scatter
-scatter_plot(queryUrl)
+
 
 // Initial X and Y params
-var chosenXAxis  = 'median income (2018)';
+var chosenXAxis = 'median income (2018)';
 var chosenYAxis = 'death rate';
+
+// d3.select('#county-dropdown')
+// .on("change", function () { 
+//   var county = document.getElementById("county-dropdown").value
+//   console.log(county);
+// //   d3.json(`/api/v1.0/Florida_data/${county}`).then(data => {
+// //     console.log(data)
+// //   })
+// //   makePlotlyChart();
+// })
+// var selectedCounty = d3.select('#county-dropdown').value();
+// console.log(selectedCounty);
 
 // // Function used for updating x-scale var upon click on axis label
 // function xScale(data, chosenXAxis) {
@@ -38,24 +50,26 @@ var chosenYAxis = 'death rate';
 //         d3.max(Object.values(data).map(d => d[chosenXAxis])) * 1.2
 //       ])
 //       .range([0, chartWwidth]);
-  
+
 //     return xLinearScale;
-  
+
 //   }
+// console.log(Object.keys(county));
 
 // Function that populates the scatter plot
 function scatter_plot(data_origin) {
 
     // Perform a GET request to the query URL
-    d3.json(data_origin).then(function(data) {
-        
-        // xScaleChange(data, x, y);
+    d3.json(data_origin).then(function (data) {
+
+        console.log(data);
 
         // console.log(d3.min(data, d => Object.values(d).map(r => r[x])));
 
         // X and Y axis array extraction
-        var xVals = Object.values(data).map(d => d[chosenXAxis]);
-        var yVals = Object.values(data).map(d => d[chosenYAxis]);
+        xVals = Object.values(data).map(d => d[chosenXAxis]);
+        yVals = Object.values(data).map(d => d[chosenYAxis]);
+        countyList = Object.values(data).map(d => d.county);
 
         console.log(Array.isArray(xVals));
         // console.log(xVals);
@@ -69,31 +83,69 @@ function scatter_plot(data_origin) {
 
 
         // Add X axis
-        var xScale = d3.scaleLinear()
+        xScale = d3.scaleLinear()
             .domain([xValMin, xValMax])
             .range([0, chartWidth])
 
         // Add Y axis
-        var yScale = d3.scaleLinear()
+        yScale = d3.scaleLinear()
             .domain([yValMin, yValMax])
             .range([chartHeight, 0]);
 
+        selectedCounty = document.getElementById("county-dropdown").value;
+        
         // Add dots
-        chart.append('g')
-            .selectAll("circle")
-            .data(xVals)
-            .enter()
-            .append("circle")
-            .attr("cx", function(d,i) { return xScale(d); })
-            .attr("cy", function(d,i) { return yScale(yVals[i]); })
-            .attr("r", 5)
-            .classed('bubbles', true);
+        // chart.append('g')
+        //     .selectAll("circle")
+        //     .data(xVals)
+        //     .enter()
+        //     .append("circle")
+        //     .attr("cx", function (d, i) { return xScale(d); })
+        //     .attr("cy", function (d, i) { return yScale(yVals[i]); })
+        //     .attr("r", 5)
+        //     .classed('bubbles', true);
 
-        // Add Text
-        var text = chart.selectAll("text")
-            .data(data)
-            .enter()
-            .append("text");
+        // Add dots ORIGINAL
+        // Dots
+        // chart.append('g')
+        //     .selectAll("circle")
+        //     .data(xVals)
+        //     .enter()
+        //     .append("circle")
+        //     // .attr("class", "bubbles")
+        //     .attr("cx", function (d, i) { return xScale(d); })
+        //     .attr("cy", function (d, i) { return yScale(yVals[i]); })
+        //     .attr("r", 5)
+        //     .attr("class", function(d, i) {
+        //         if(countyList[i] == selectedCounty) {return "highlight"}
+
+        //         else {return "bubbles"}
+        //     });
+  
+
+
+
+        chart.html('')
+        .append('g')
+        .selectAll("circle")
+        .data(xVals)
+        .enter()
+        .append("circle")
+        // .attr("class", "bubbles")
+        .attr("cx", function (d, i) { return xScale(d); })
+        .attr("cy", function (d, i) { return yScale(yVals[i])*.95; } )
+        .attr("r", 5)
+        // .classed('bubbles', true);
+        .attr("class", false)
+        .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles");
+        // .style("opacity", 0.75)
+        // .style("fill", function(d, i) {
+        //     if(countyList[i] == selectedCounty) {return "red"}
+
+        //     else {return "blue"}
+        // })
+    //     // .style("opacity", 0.75)
+    // console.log(xVals);
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
@@ -111,6 +163,8 @@ function scatter_plot(data_origin) {
         chart.append("g")
             .call(yAxis)
             .attr('class', 'yAxis')
+
+
 
         // Y axis label
         var axisLabelX = chartWidth / 10;
@@ -132,6 +186,9 @@ function scatter_plot(data_origin) {
             .text(chosenXAxis)
             .classed('axis', true)
 
+    
+
+
 
 
     });
@@ -142,3 +199,6 @@ function scatter_plot(data_origin) {
 //         // console.log(error);
 // });
 // };
+
+// Loads Scatter
+scatter_plot(queryUrl);

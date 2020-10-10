@@ -43,4 +43,5 @@ d3.select('#county-dropdown')
     console.log(data)
   })
   makePlotlyChart();
+  scatter_plot(queryUrl);
 })
