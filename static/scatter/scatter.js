@@ -24,37 +24,9 @@ var chart = svg.append('g')
 // Relative path for data origin 
 var queryUrl = "/api/v1.0/Florida_data";
 
-
-
 // Initial X and Y params
 var chosenXAxis = 'median income (2018)';
 var chosenYAxis = 'death rate';
-
-// d3.select('#county-dropdown')
-// .on("change", function () { 
-//   var county = document.getElementById("county-dropdown").value
-//   console.log(county);
-// //   d3.json(`/api/v1.0/Florida_data/${county}`).then(data => {
-// //     console.log(data)
-// //   })
-// //   makePlotlyChart();
-// })
-// var selectedCounty = d3.select('#county-dropdown').value();
-// console.log(selectedCounty);
-
-// // Function used for updating x-scale var upon click on axis label
-// function xScale(data, chosenXAxis) {
-//     // create scales
-//     var xLinearScale = d3.scaleLinear()
-//       .domain([d3.min(Object.values(data).map(d => d[chosenXAxis])) * 0.8,
-//         d3.max(Object.values(data).map(d => d[chosenXAxis])) * 1.2
-//       ])
-//       .range([0, chartWwidth]);
-
-//     return xLinearScale;
-
-//   }
-// console.log(Object.keys(county));
 
 // Function that populates the scatter plot
 function scatter_plot(data_origin) {
@@ -64,23 +36,16 @@ function scatter_plot(data_origin) {
 
         console.log(data);
 
-        // console.log(d3.min(data, d => Object.values(d).map(r => r[x])));
-
         // X and Y axis array extraction
         xVals = Object.values(data).map(d => d[chosenXAxis]);
         yVals = Object.values(data).map(d => d[chosenYAxis]);
         countyList = Object.values(data).map(d => d.county);
-
-        console.log(Array.isArray(xVals));
-        // console.log(xVals);
 
         // X and Y max/min values
         var xValMax = d3.max(xVals) * 1.10;
         var xValMin = d3.min(xVals) * 0.90;
         var yValMax = d3.max(yVals) * 1.10;
         var yValMin = d3.min(yVals) * 0.90;
-        // console.log(xValMax, xValMin, yValMax, yValMin);
-
 
         // Add X axis
         xScale = d3.scaleLinear()
@@ -92,60 +57,21 @@ function scatter_plot(data_origin) {
             .domain([yValMin, yValMax])
             .range([chartHeight, 0]);
 
+        // Pull county information from dropdown
         selectedCounty = document.getElementById("county-dropdown").value;
         
         // Add dots
-        // chart.append('g')
-        //     .selectAll("circle")
-        //     .data(xVals)
-        //     .enter()
-        //     .append("circle")
-        //     .attr("cx", function (d, i) { return xScale(d); })
-        //     .attr("cy", function (d, i) { return yScale(yVals[i]); })
-        //     .attr("r", 5)
-        //     .classed('bubbles', true);
-
-        // Add dots ORIGINAL
-        // Dots
-        // chart.append('g')
-        //     .selectAll("circle")
-        //     .data(xVals)
-        //     .enter()
-        //     .append("circle")
-        //     // .attr("class", "bubbles")
-        //     .attr("cx", function (d, i) { return xScale(d); })
-        //     .attr("cy", function (d, i) { return yScale(yVals[i]); })
-        //     .attr("r", 5)
-        //     .attr("class", function(d, i) {
-        //         if(countyList[i] == selectedCounty) {return "highlight"}
-
-        //         else {return "bubbles"}
-        //     });
-  
-
-
-
         chart.html('')
         .append('g')
         .selectAll("circle")
         .data(xVals)
         .enter()
         .append("circle")
-        // .attr("class", "bubbles")
         .attr("cx", function (d, i) { return xScale(d); })
         .attr("cy", function (d, i) { return yScale(yVals[i])*.95; } )
         .attr("r", 5)
-        // .classed('bubbles', true);
         .attr("class", false)
         .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles");
-        // .style("opacity", 0.75)
-        // .style("fill", function(d, i) {
-        //     if(countyList[i] == selectedCounty) {return "red"}
-
-        //     else {return "blue"}
-        // })
-    //     // .style("opacity", 0.75)
-    // console.log(xVals);
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
@@ -153,24 +79,22 @@ function scatter_plot(data_origin) {
             .ticks(4)
             .tickFormat(d => '$' + d3.format(',')(d))
 
-        // Set x to the bottom of the chart
+        // Set X to the bottom of the chart
         chart.append("g")
             .attr("transform", `translate(0, ${chartHeight})`)
             .call(xAxis)
             .attr('class', 'xAxis')
 
-        // Set y to the y axis
+        // Set Y to the Y axis
         chart.append("g")
             .call(yAxis)
             .attr('class', 'yAxis')
 
-        // Linear Regression line
+        // Linear regression
         var dataLinear = []
         xVals.forEach(function (v, i) {
             dataLinear.push({ 'x': v, 'y': yVals[i] })
         });
-
-        // console.log(dataLinear);
 
         var linearRegression = d3.regressionLinear()
             .x(d => d.x)
@@ -194,6 +118,7 @@ function scatter_plot(data_origin) {
             .attr("d", line)
             .style("stroke", "steelblue")
             .style("stroke-width", "2px");
+        // Linear regression end
 
         // Y axis label
         var axisLabelX = chartWidth / 10;
@@ -215,19 +140,9 @@ function scatter_plot(data_origin) {
             .text(chosenXAxis)
             .classed('axis', true)
 
-    
-
-
-
-
     });
 };
 
-// })
-// .catch(function(error) {
-//         // console.log(error);
-// });
-// };
 
-// Loads Scatter
+// Load Scatter
 scatter_plot(queryUrl);
