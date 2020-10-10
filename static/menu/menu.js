@@ -45,3 +45,21 @@ d3.select('#county-dropdown')
   makePlotlyChart();
   scatter_plot(queryUrl);
 })
+
+d3.select('#xaxis')
+  .on("change", () => {
+    var queryUrl = "/api/v1.0/Florida_data"
+    var xaxis = document.getElementById('xaxis').value
+    var yaxis = document.getElementById('yaxis').value
+
+    scatter_plot(queryUrl,xaxis,yaxis)
+  })
+
+d3.select('#yaxis')
+  .on("change", () => {
+    var queryUrl = "/api/v1.0/Florida_data"
+    var xaxis = document.getElementById('xaxis').value
+    var yaxis = document.getElementById('yaxis').value
+
+    scatter_plot(queryUrl,xaxis,yaxis)
+  })

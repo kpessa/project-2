@@ -2,34 +2,37 @@
 var svgWidth = parseInt(d3.select('#d3-scatter').style('width'));
 var svgHeight = 400;
 var hHeight = parseInt(d3.select('#scatter-title-height').style('height'));
-var margin = { t: 10, r: 30, b: 80, l: 100 }
+var margin = { t: 10, r: 30, b: 80, l: 120 }
 
 // Define dimensions of the chart area
 var chartWidth = svgWidth - margin.l - margin.r;
 var chartHeight = svgHeight - hHeight - margin.t - margin.b;
 
-// Append the svg object to the body of the page
-var svg = d3.select("#d3-scatter")
+// Relative path for data origin 
+var queryUrl = "/api/v1.0/Florida_data";
+
+// Initial X and Y params
+var chosenXAxis = 'population';
+var chosenYAxis = 'death rate';
+
+// Function that populates the scatter plot
+function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
+
+    d3.select("#d3-scatter").select('svg').remove()
+
+    // Append the svg object to the body of the page
+    var svg = d3.select("#d3-scatter")
     .append("svg")
     .attr("width", svgWidth)
     .attr("height", svgHeight)
     .call(responsivefy)
 
-// Append an SVG group
-var chart = svg.append('g')
+    // Append an SVG group
+    var chart = svg.append('g')
     .attr("transform", `translate(${margin.l} ${margin.t})`)
     .attr("width", chartWidth)
     .attr("height", chartHeight)
 
-// Relative path for data origin 
-var queryUrl = "/api/v1.0/Florida_data";
-
-// Initial X and Y params
-var chosenXAxis = 'median income (2018)';
-var chosenYAxis = 'death rate';
-
-// Function that populates the scatter plot
-function scatter_plot(data_origin) {
 
     // Perform a GET request to the query URL
     d3.json(data_origin).then(function (data) {
@@ -74,9 +77,15 @@ function scatter_plot(data_origin) {
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
-        var xAxis = d3.axisBottom(xScale)
+        if (chosenXAxis == "median income (2018)") {
+            var xAxis = d3.axisBottom(xScale)
             .ticks(4)
             .tickFormat(d => '$' + d3.format(',')(d))
+        } else {
+            var xAxis = d3.axisBottom(xScale)
+                .ticks(5)
+        }
+        
 
         // Set X to the bottom of the chart
         chart.append("g")
@@ -100,24 +109,20 @@ function scatter_plot(data_origin) {
             .y(d => d.y)
             .domain([xValMin+3000, xValMax-10000]);
 
+        
+
         chart.append('g')
             .attr('transform',`translate(${chartWidth-150} 50)`)
             .append('text')
                 .attr('x',0)
                 .attr('y',0)
                 .classed('legend',true)
-                .text(`r = ${Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2)}`)
+                .text(`r = ${(linearRegression(dataLinear).a < 0) ? -Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2) : Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2)}`)
             .append('svg:tspan')
                 .attr('x',0)
                 .attr('dy',20)
                 .classed('legend',true)
-                .text(`R^2 = ${linearRegression(dataLinear).rSquared.toFixed(2)}`)
-
-        console.log(linearRegression(dataLinear).a)
-        console.log("r^2",linearRegression(dataLinear).rSquared)
-        console.log("r",Math.sqrt(linearRegression(dataLinear).rSquared))
-        
-            
+                .text(`R^2 = ${linearRegression(dataLinear).rSquared.toFixed(2)}`)            
 
         let res = linearRegression(dataLinear)
 
@@ -164,4 +169,4 @@ function scatter_plot(data_origin) {
 
 
 // Load Scatter
-scatter_plot(queryUrl);
+scatter_plot(queryUrl,chosenXAxis,chosenYAxis);
