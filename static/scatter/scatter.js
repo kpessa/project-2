@@ -15,6 +15,13 @@ var queryUrl = "/api/v1.0/Florida_data";
 var chosenXAxis = 'population';
 var chosenYAxis = 'death rate';
 
+// Tooltips
+// Step 1: Append tooltip div
+var toolTip = d3.select('#d3-scatter')
+    .append("div")
+    .html("<h1>hello</h1>")
+    .classed("tooltip", true);
+
 // Function that populates the scatter plot
 function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
 
@@ -22,20 +29,23 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
 
     // Append the svg object to the body of the page
     var svg = d3.select("#d3-scatter")
-    .append("svg")
-    .attr("width", svgWidth)
-    .attr("height", svgHeight)
-    .call(responsivefy)
+        .append("svg")
+        .attr("width", svgWidth)
+        .attr("height", svgHeight)
+        .call(responsivefy)
 
     // Append an SVG group
     var chart = svg.append('g')
-    .attr("transform", `translate(${margin.l} ${margin.t})`)
-    .attr("width", chartWidth)
-    .attr("height", chartHeight)
+        .attr("transform", `translate(${margin.l} ${margin.t})`)
+        .attr("width", chartWidth)
+        .attr("height", chartHeight)
 
 
     // Perform a GET request to the query URL
     d3.json(data_origin).then(function (data) {
+
+
+
 
         // X and Y axis array extraction
         xVals = Object.values(data).map(d => d[chosenXAxis]);
@@ -60,32 +70,81 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
 
         // Pull county information from dropdown
         selectedCounty = document.getElementById("county-dropdown").value;
-        
+
+
         // Add dots
         circlesGroup = chart.html('')
-        .append('g')
-        .selectAll("circle")
-        .data(xVals)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d, i) { return xScale(d); })
-        .attr("cy", function (d, i) { return yScale(yVals[i])*.95; } )
-        .attr("r", 5)
-        .attr("class", false)
-        .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles");
+            .append('g')
+            .selectAll("circle")
+            .data(xVals)
+            .enter()
+            .append("circle")
+            .attr("cx", (d, i) => xScale(d))
+            .attr("cy", (d, i) => { 
+                console.log(i)
+                return yScale(yVals[i]) * .95 
+        } )
+            .attr("r", 5)
+            .on("mouseover", function () {
+                // console.log(d, i)
+                toolTip.style("display", "block")
+                toolTip.html((d,i) => yVals[i]) 
+                // `<strong>${d}<strong><hr>${yVals[i]}`)
+                // .style("left", d3.event.pageX + "px")
+                // .style("top", d3.event.pageY + "px");
+            })
+            // .on("mouseout", function (d, i) {
+            //     toolTip.style("display", "none");
+            // })
+            .attr("class", false)
+            .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles")
 
+
+        // circlesGroup 
+        //     .data(xVals)
+        //     .enter()
+        //     .append("path")
+        // .on("mouseover", function (d, i) {
+        //     toolTip.style("display", "block");
+        //     tooltip.html(`<strong>${d}<strong><hr>${yVals[i]}`)
+        //         .style("left", d3.event.pageX + "px")
+        //         .style("top", d3.event.pageY + "px");
+        // })
+        // .on("mouseout", function (d, i) {
+        //     toolTip.style("display", "none");
+        // })
+
+        // .attr("class", "point");
+
+        //     // =======================================================
+        //     var toolTip = d3.select("body")//.append("div")
+        //     // .attr("class", "tooltip");
+
+        //     // Step 2: Add an onmouseover event to display a tooltip
+        //     // ========================================================
+        //     circlesGroup.on("mouseover", function (d, i) {
+        //         toolTip.style("display", "block");
+        //         toolTip.html(`Pizzas eaten: <strong>${pizzasEatenByMonth[i]}</strong>`)
+        //             .style("left", d3.event.pageX + "px")
+        //             .style("top", d3.event.pageY + "px");
+        //     })
+        //         // Step 3: Add an onmouseout event to make the tooltip invisible
+        //         .on("mouseout", function () {
+        //             toolTip.style("display", "none");
+        //         });
+        // }
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);
         if (chosenXAxis == "median income (2018)") {
             var xAxis = d3.axisBottom(xScale)
-            .ticks(4)
-            .tickFormat(d => '$' + d3.format(',')(d))
+                .ticks(4)
+                .tickFormat(d => '$' + d3.format(',')(d))
         } else {
             var xAxis = d3.axisBottom(xScale)
                 .ticks(5)
         }
-        
+
 
         // Set X to the bottom of the chart
         chart.append("g")
@@ -107,22 +166,22 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
         var linearRegression = d3.regressionLinear()
             .x(d => d.x)
             .y(d => d.y)
-            .domain([xValMin+3000, xValMax-10000]);
+            .domain([xValMin + 3000, xValMax - 10000]);
 
-        
+
 
         chart.append('g')
-            .attr('transform',`translate(${chartWidth-150} 50)`)
+            .attr('transform', `translate(${chartWidth - 150} 50)`)
             .append('text')
-                .attr('x',0)
-                .attr('y',0)
-                .classed('legend',true)
-                .text(`r = ${(linearRegression(dataLinear).a < 0) ? -Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2) : Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2)}`)
+            .attr('x', 0)
+            .attr('y', 0)
+            .classed('legend', true)
+            .text(`r = ${(linearRegression(dataLinear).a < 0) ? -Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2) : Math.sqrt(linearRegression(dataLinear).rSquared).toFixed(2)}`)
             .append('svg:tspan')
-                .attr('x',0)
-                .attr('dy',20)
-                .classed('legend',true)
-                .text(`R^2 = ${linearRegression(dataLinear).rSquared.toFixed(2)}`)            
+            .attr('x', 0)
+            .attr('dy', 20)
+            .classed('legend', true)
+            .text(`R^2 = ${linearRegression(dataLinear).rSquared.toFixed(2)}`)
 
         let res = linearRegression(dataLinear)
 
@@ -135,7 +194,7 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
         let line = d3.line()
             .x((d) => x(d[0]))
             .y((d) => y(d[1]));
-        
+
         chart.append("path")
             .datum(res)
             .attr("d", line)
@@ -164,9 +223,10 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .classed('axis', true)
 
 
+
     });
 };
 
 
 // Load Scatter
-scatter_plot(queryUrl,chosenXAxis,chosenYAxis);
+scatter_plot(queryUrl, chosenXAxis, chosenYAxis);
