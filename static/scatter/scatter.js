@@ -19,8 +19,9 @@ var chosenYAxis = 'death rate';
 // Step 1: Append tooltip div
 var toolTip = d3.select('#d3-scatter')
     .append("div")
-    .html("<h1>hello</h1>")
-    .classed("tooltip", true);
+    // .html("<h1>hello</h1>")
+    .attr("class", "tooltip");
+    // .classed("tooltip", true);
 
 // Function that populates the scatter plot
 function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
@@ -43,9 +44,6 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
 
     // Perform a GET request to the query URL
     d3.json(data_origin).then(function (data) {
-
-
-
 
         // X and Y axis array extraction
         xVals = Object.values(data).map(d => d[chosenXAxis]);
@@ -81,24 +79,27 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .append("circle")
             .attr("cx", (d, i) => xScale(d))
             .attr("cy", (d, i) => { 
-                console.log(i)
+                // console.log(i)
                 return yScale(yVals[i]) * .95 
         } )
-            .attr("r", 5)
-            .on("mouseover", function () {
-                // console.log(d, i)
-                toolTip.style("display", "block")
-                toolTip.html((d,i) => yVals[i]) 
-                // `<strong>${d}<strong><hr>${yVals[i]}`)
-                // .style("left", d3.event.pageX + "px")
-                // .style("top", d3.event.pageY + "px");
-            })
-            // .on("mouseout", function (d, i) {
-            //     toolTip.style("display", "none");
-            // })
+            .attr("r", 5)  
             .attr("class", false)
             .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles")
 
+        circlesGroup.on("mouseover", function (d, i) {
+            // console.log(d, i)
+            toolTip.style("display", "block");
+            toolTip.html(
+                // (d, i) => yVals[i])
+                `<strong>${d}<strong><hr>${yVals[i]}`)
+                .style("left", d3.event.pageX + "px")
+                .style("top", d3.event.pageY + "px");
+            // cx+3
+        });
+
+        circlesGroup.on("mouseout", function () {
+                toolTip.style("display", "none");
+            });
 
         // circlesGroup 
         //     .data(xVals)
