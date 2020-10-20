@@ -77,28 +77,28 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .data(xVals)
             .enter()
             .append("circle")
+            .attr('x-data-value', (d,i) =>d) 
+            .attr('y-data-value', (d,i) => yVals[i]) 
             .attr("cx", (d, i) => xScale(d))
             .attr("cy", (d, i) => { 
-                // console.log(i)
+                // console.log(yVals[i])
                 return yScale(yVals[i]) * .95 
         } )
             .attr("r", 5)  
             .attr("class", false)
             .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles")
 
-        circlesGroup.on("mouseover", function (d, i) {
-            // console.log(d, i)
+        circlesGroup.on("mouseover", function () {
             toolTip.style("display", "block");
-            toolTip.html(
-                // (d, i) => yVals[i])
-                `<strong>${d}<strong><hr>${yVals[i]}`)
-                .style("left", d3.event.pageX + "px")
-                .style("top", d3.event.pageY + "px");
+            toolTip.html(`<strong>${chosenXAxis}: ${d3.select(this).attr('x-data-value')}<strong><hr>
+                        <strong>${chosenYAxis}: ${d3.select(this).attr('y-data-value')}<strong><hr>`)
+                // .style("left", d3.event.pageX + "px")
+                // .style("top", d3.event.pageY + "px");
             // cx+3
         });
 
         circlesGroup.on("mouseout", function () {
-                toolTip.style("display", "none");
+                // toolTip.style("display", "none");
             });
 
         // circlesGroup 
