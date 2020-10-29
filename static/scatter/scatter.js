@@ -19,6 +19,7 @@ var chosenYAxis = 'death rate';
 // Step 1: Append tooltip div
 var toolTip = d3.select('#d3-scatter')
     .append("div")
+    .style("display", "none")
     // .html("<h1>hello</h1>")
     .attr("class", "tooltip");
     // .classed("tooltip", true);
@@ -90,50 +91,26 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
 
         circlesGroup.on("mouseover", function () {
             toolTip.style("display", "block");
-            toolTip.html(`<strong>${chosenXAxis}: ${d3.select(this).attr('x-data-value')}<strong><hr>
-                        <strong>${chosenYAxis}: ${d3.select(this).attr('y-data-value')}<strong><hr>`)
+            toolTip.html(`<table>
+                        <tr>
+                        <td class="scatterLabel">${chosenXAxis}</td>
+                        <td class="scatterDatum"> ${d3.select(this).attr('x-data-value')}</td>
+                        </tr>
+                        <tr>
+                        <td class="scatterLabel">${chosenYAxis}</td>
+                        <td class="scatterDatum">${d3.select(this).attr('y-data-value')}</td>
+                        </tr>
+                        </table>
+                        <hr>`)
                 // .style("left", d3.event.pageX + "px")
                 // .style("top", d3.event.pageY + "px");
             // cx+3
         });
 
         circlesGroup.on("mouseout", function () {
-                // toolTip.style("display", "none");
+                toolTip.style("display", "none");
             });
 
-        // circlesGroup 
-        //     .data(xVals)
-        //     .enter()
-        //     .append("path")
-        // .on("mouseover", function (d, i) {
-        //     toolTip.style("display", "block");
-        //     tooltip.html(`<strong>${d}<strong><hr>${yVals[i]}`)
-        //         .style("left", d3.event.pageX + "px")
-        //         .style("top", d3.event.pageY + "px");
-        // })
-        // .on("mouseout", function (d, i) {
-        //     toolTip.style("display", "none");
-        // })
-
-        // .attr("class", "point");
-
-        //     // =======================================================
-        //     var toolTip = d3.select("body")//.append("div")
-        //     // .attr("class", "tooltip");
-
-        //     // Step 2: Add an onmouseover event to display a tooltip
-        //     // ========================================================
-        //     circlesGroup.on("mouseover", function (d, i) {
-        //         toolTip.style("display", "block");
-        //         toolTip.html(`Pizzas eaten: <strong>${pizzasEatenByMonth[i]}</strong>`)
-        //             .style("left", d3.event.pageX + "px")
-        //             .style("top", d3.event.pageY + "px");
-        //     })
-        //         // Step 3: Add an onmouseout event to make the tooltip invisible
-        //         .on("mouseout", function () {
-        //             toolTip.style("display", "none");
-        //         });
-        // }
 
         // Create axes
         var yAxis = d3.axisLeft(yScale);

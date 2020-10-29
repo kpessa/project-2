@@ -63,26 +63,5 @@ h1 {
   color: white;
 }
 
-.bubbles {
-  fill: steelblue;
-  stroke: black;
-  stroke-width: 1px;
-  opacity:0.5;
-}
-
-.highlight {
-  fill: red;
-  stroke: black;
-  stroke-width: 1px;
-  opacity:1;
-}
-
-.tooltip {
-  width: 60%;
-  margin: auto;
-  padding: 14px;
-  border: 2px solid white;
-  background: #3f4f75;
-}
 
 
