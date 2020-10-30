@@ -78,14 +78,17 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .append("circle")
             .attr('x-data-value', (d,i) =>d) 
             .attr('y-data-value', (d,i) => yVals[i]) 
+            .attr('counties', (d,i) => countyList[i] )
             .attr("cx", (d, i) => xScale(d))
             .attr("cy", (d, i) => { 
                 return yScale(yVals[i]) * .95 
         } )
             .attr("r", 5)  
             .attr("class", false)
+            // Highlight selected county in scatter plot
             .attr("class", (d, i) => countyList[i] == selectedCounty ? "highlight" : "bubbles")
 
+        // Tooltip on Mouseover
         circlesGroup.on("mouseover", function () {
             toolTip.style("display", "block");
             toolTip.html(`<table>
@@ -101,6 +104,7 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
                         <hr>`)
         });
 
+        // Tooltip on Mouseout
         circlesGroup.on("mouseout", function () {
                 toolTip.style("display", "none");
             });
