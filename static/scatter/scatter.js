@@ -20,9 +20,7 @@ var chosenYAxis = 'death rate';
 var toolTip = d3.select('#d3-scatter')
     .append("div")
     .style("display", "none")
-    // .html("<h1>hello</h1>")
     .attr("class", "tooltip");
-    // .classed("tooltip", true);
 
 // Function that populates the scatter plot
 function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
@@ -82,7 +80,6 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .attr('y-data-value', (d,i) => yVals[i]) 
             .attr("cx", (d, i) => xScale(d))
             .attr("cy", (d, i) => { 
-                // console.log(yVals[i])
                 return yScale(yVals[i]) * .95 
         } )
             .attr("r", 5)  
@@ -102,9 +99,6 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
                         </tr>
                         </table>
                         <hr>`)
-                // .style("left", d3.event.pageX + "px")
-                // .style("top", d3.event.pageY + "px");
-            // cx+3
         });
 
         circlesGroup.on("mouseout", function () {
@@ -209,33 +203,14 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
         "Minority Status and Language": "Vulnerability score specific to the county's minority status and language factors.",
         "Socioeconomic Status": "Vulnerability score specific to the county's socioeconomic factors."};
 
-        
+        // Iteration loop to update definition based on the chosen X Axis variable
         Object.entries(xAxisDefinitions).forEach(([key, value]) => {
             var lowercaseKey = key.toLowerCase();
             if (chosenXAxis == lowercaseKey) {    
                 console.log(lowercaseKey)
                 definition = d3.selectAll('#xAxisDefinition');
-                definition.html(`X-Axis Definition <br> <p>${key} : ${value}</p>`).classed('xDefinition', true);
-            }
-            else {
-                console.log('it no work');
-            }
-            
-        }
-        );
-        
-
-
-        // 'state':row[1], 
-
-        //                     'socioeconomic status': row[14], 
-        //                     'household composition and disability':row[15],
-        //                     'minority status and language':row[16],
-        //                     'housing type and transportation':row[17],
-        //                     'epidemiological factors':row[18],
-        //                     'healthcare system factors':row[19]})
-
-        // .classed("tooltip", true);
+                definition.html(`X-Axis Definition <br> <p>${key} : ${value}</p>`).classed('xDefinition', true);}            
+        });
 
     });
 };
