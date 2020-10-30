@@ -22,6 +22,18 @@ var toolTip = d3.select('#d3-scatter')
     .style("display", "none")
     .attr("class", "tooltip");
 
+// Function to capitalize text for labels (ignoring words under the length of 4)
+function capitalizeEachWord(str) {
+    return str.replace(/\w\S*/g, function(txt) {
+        if (txt.length >3) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+        else {
+            return txt;
+        }
+    });
+}
+
 // Function that populates the scatter plot
 function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
 
@@ -91,14 +103,19 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
         // Tooltip on Mouseover
         circlesGroup.on("mouseover", function () {
             toolTip.style("display", "block");
-            toolTip.html(`<table>
+            toolTip.html(`<tr>
+                        <table>
+                        <td class="scatterLabel">County</td>
+                        <td class="scatterDatum"> ${d3.select(this).attr('counties')}</td>
+                        </tr>
+                        <hr>
                         <tr>
-                        <td class="scatterLabel">${chosenXAxis}</td>
-                        <td class="scatterDatum"> ${d3.select(this).attr('x-data-value')}</td>
+                        <td class="scatterLabel">${capitalizeEachWord(chosenYAxis)}</td>
+                        <td class="scatterDatum">${d3.select(this).attr('y-data-value')}</td>
                         </tr>
                         <tr>
-                        <td class="scatterLabel">${chosenYAxis}</td>
-                        <td class="scatterDatum">${d3.select(this).attr('y-data-value')}</td>
+                        <td class="scatterLabel">${capitalizeEachWord(chosenXAxis)}</td>
+                        <td class="scatterDatum"> ${d3.select(this).attr('x-data-value')}</td>
                         </tr>
                         </table>
                         <hr>`)
