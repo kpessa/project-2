@@ -93,7 +93,7 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .attr('counties', (d,i) => countyList[i] )
             .attr("cx", (d, i) => xScale(d))
             .attr("cy", (d, i) => { 
-                return yScale(yVals[i]) * .95 
+                return yScale(yVals[i]) * .98 
         } )
             .attr("r", 5)  
             .attr("class", false)
