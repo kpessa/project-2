@@ -123,7 +123,6 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
                 .ticks(5)
         }
 
-
         // Set X to the bottom of the chart
         chart.append("g")
             .attr("transform", `translate(0, ${chartHeight})`)
@@ -135,7 +134,7 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .call(yAxis)
             .attr('class', 'yAxis')
 
-        // Linear regression
+        // Linear regression start
         var dataLinear = []
         xVals.forEach(function (v, i) {
             dataLinear.push({ 'x': v, 'y': yVals[i] })
@@ -145,8 +144,6 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .x(d => d.x)
             .y(d => d.y)
             .domain([xValMin + 3000, xValMax - 10000]);
-
-
 
         chart.append('g')
             .attr('transform', `translate(${chartWidth - 150} 50)`)
@@ -200,7 +197,45 @@ function scatter_plot(data_origin, chosenXAxis, chosenYAxis) {
             .text(chosenXAxis)
             .classed('axis', true)
 
+        // X Axis Definitions
+        var xAxisDefinitions = {'Population': '2019 population by county.',
+        'Uninsured Percent': 'Percent of the population without insurance by county.',
+        'Fair or Poor Health Percent': 'Percent of the population reporting fair/poor health by county.',
+        'Median Income (2018)': '2018 median income by county.',
+        'CCVI Score': 'The overall vulnerability score for a county. It can range from 0 to 1 - higher scores indicate a county is more vulnerable.',
+        "Epidemiological Factors": "Vulnerability score specific to the county's epidemiological factors.",
+        "Healthcare System Factors": "Vulnerability score specific to the county's healthcare system factors.",
+        "Housing Type and Transportation": "Vulnerability score specific to the county's housing type and transportation factors.",
+        "Minority Status and Language": "Vulnerability score specific to the county's minority status and language factors.",
+        "Socioeconomic Status": "Vulnerability score specific to the county's socioeconomic factors."};
 
+        
+        Object.entries(xAxisDefinitions).forEach(([key, value]) => {
+            var lowercaseKey = key.toLowerCase();
+            if (chosenXAxis == lowercaseKey) {    
+                console.log(lowercaseKey)
+                definition = d3.selectAll('#xAxisDefinition');
+                definition.html(`X-Axis Definition <br> <p>${key} : ${value}</p>`).classed('xDefinition', true);
+            }
+            else {
+                console.log('it no work');
+            }
+            
+        }
+        );
+        
+
+
+        // 'state':row[1], 
+
+        //                     'socioeconomic status': row[14], 
+        //                     'household composition and disability':row[15],
+        //                     'minority status and language':row[16],
+        //                     'housing type and transportation':row[17],
+        //                     'epidemiological factors':row[18],
+        //                     'healthcare system factors':row[19]})
+
+        // .classed("tooltip", true);
 
     });
 };
